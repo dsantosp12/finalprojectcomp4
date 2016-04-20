@@ -42,4 +42,6 @@ Initial Splitted Works:
 
 Author: Hung Q Nguyen
 	+ Making Initial Objects of plannets and its features (movements ...)
-	
+
+Work Done by Daniel Santos:
+    + Implemented the header file for the SpaceObject & Start classes.
