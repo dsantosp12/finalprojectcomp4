@@ -1,5 +1,71 @@
-//
-// Created by Daniel Santos on 4/19/16.
-//
-
 #include "Universe.hpp"
+
+Universe::SpaceObject::SpaceObject() : sf::Drawable() {
+
+}
+
+Universe::SpaceObject::SpaceObject(sf::Vector2f location,
+                                   sf::Vector2u velocity,
+                                   double mass) : sf::Drawable() {
+
+}
+
+Universe::SpaceObject::~SpaceObject() {
+
+}
+
+const sf::Vector2f& Universe::SpaceObject::getLocation() const {
+  return location_;
+}
+
+void Universe::SpaceObject::setLocation(const sf::Vector2f &location) {
+  location_ = location;
+}
+
+double Universe::SpaceObject::getMass() const {
+  return mass_;
+}
+
+void Universe::SpaceObject::setMass(double mass) {
+  if (mass <= 0) throw std::invalid_argument("Mass must greater than 0");
+  mass_ = mass;
+}
+
+const sf::Vector2u& Universe::SpaceObject::getVelocity() const {
+  return velocity_;
+}
+
+void Universe::SpaceObject::setVelocity(const sf::Vector2u &velocity) {
+  velocity_ = velocity;
+}
+
+void Universe::SpaceObject::draw(sf::RenderTarget &target,
+                                 sf::RenderStates states) const {
+
+}
+
+Universe::Start::Start() : SpaceObject() {
+
+}
+
+Universe::Start::Start(sf::Vector2f location,
+                       sf::Vector2u velocity, double mass) :
+                       SpaceObject(location, velocity, mass) {
+
+}
+
+Universe::Start::~Start() {
+
+}
+
+void Universe::Start::draw(sf::RenderTarget &target, sf::RenderStates states) const {
+
+}
+
+sf::Vector2f Universe::Start::positionGenerator() {
+  return sf::Vector2f();
+}
+
+float Universe::Start::radiusGenerator() {
+  return 0.0;
+}

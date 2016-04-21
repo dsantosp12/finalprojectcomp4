@@ -17,7 +17,7 @@ class SpaceObject : public sf::Drawable {
   double getMass() const;
   void setMass(double mass);
  private:
-  virtual void sf::Drawable::draw(sf::RenderTarget &target, sf::RenderStates states) const;
+  virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
   sf::Vector2f location_;
   sf::Vector2u velocity_;
   double       mass_;
@@ -26,9 +26,10 @@ class SpaceObject : public sf::Drawable {
 class Start : public SpaceObject {
  public:
   Start();
+  Start(sf::Vector2f location, sf::Vector2u velocity, double mass);
   ~Start();
  private:
-  void SpaceObject::draw(sf::RenderTarget &target, sf::RenderStates states) const;
+  virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
   sf::Vector2f positionGenerator();
   float radiusGenerator();
   sf::CircleShape shape_;
