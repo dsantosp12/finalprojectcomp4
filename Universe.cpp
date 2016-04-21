@@ -39,33 +39,28 @@ void Universe::SpaceObject::setVelocity(const sf::Vector2u &velocity) {
   velocity_ = velocity;
 }
 
-void Universe::SpaceObject::draw(sf::RenderTarget &target,
-                                 sf::RenderStates states) const {
+Universe::Star::Star() : SpaceObject() {
 
 }
 
-Universe::Start::Start() : SpaceObject() {
+Universe::Star::Star(sf::Vector2f location, double mass, double radius) :
+                     SpaceObject(location, sf::Vector2u(0, 0), mass) {
 
 }
 
-Universe::Start::Start(sf::Vector2f location,
-                       sf::Vector2u velocity, double mass) :
-                       SpaceObject(location, velocity, mass) {
+Universe::Star::~Star() {
 
 }
 
-Universe::Start::~Start() {
+void Universe::Star::draw(sf::RenderTarget &target,
+                           sf::RenderStates states) const {
 
 }
 
-void Universe::Start::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-
-}
-
-sf::Vector2f Universe::Start::positionGenerator() {
+sf::Vector2f Universe::Star::positionGenerator() {
   return sf::Vector2f();
 }
 
-float Universe::Start::radiusGenerator() {
+float Universe::Star::radiusGenerator() {
   return 0.0;
 }

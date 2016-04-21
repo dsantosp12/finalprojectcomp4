@@ -44,4 +44,5 @@ Author: Hung Q Nguyen
 	+ Making Initial Objects of plannets and its features (movements ...)
 
 Work Done by Daniel Santos:
-    + Implemented the header file for the SpaceObject & Start classes.
+    + 4/20 - Implemented the header file for the SpaceObject & Star classes.
+    + 4/21 - Added a new constructor to the Star class.
