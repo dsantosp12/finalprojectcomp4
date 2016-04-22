@@ -53,6 +53,7 @@ General Work: (Work has been discussed and decided together)
 Initial Splited Works:
 
 Author: Hung Q Nguyen
+<<<<<<< HEAD
 	+ Making Initial Objects of planets and its features (movements ...)
 	+ Working on Body class
 
@@ -66,3 +67,10 @@ Together:
 * Todo List:
 	+ Counting stars base on window size
 	
+=======
+	+ Making Initial Objects of plannets and its features (movements ...)
+
+Work Done by Daniel Santos:
+    + 4/20 - Implemented the header file for the SpaceObject & Star classes.
+    + 4/21 - Added a new constructor to the Star class.
+>>>>>>> da1f530e2f7c9d8c66fcae80031009c99cead29c
