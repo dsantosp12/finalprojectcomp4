@@ -89,7 +89,16 @@ namespace universe {
 			LIST OF GETTERS AND SETTERS
 			***************************************/
 
+			/*
+			* 	@brief: Setting value for mass of the planet
+			*	@param: double mass -- Value of mass to assign
+			*	@return: void
+			*/
 			void setMass(double mass) {mass_ = mass;}
+
+			/*
+			* @brief: Setting
+			*/
 			double getMass() {return mass_;}
 
 			void setTimes(double times) {times_ = times;}
