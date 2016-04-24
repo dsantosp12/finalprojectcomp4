@@ -5,25 +5,32 @@
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 
-namespace universe {
+namespace Universe {
 	class Body : public SpaceObject, virtual private NonCopyClass {
 		public:
-			/*
+			/*  @author: Hung Q Nguyen
 			*	@brief: A default constructor of the Planet itself.
 			*	A Planet will be inheritanced from the SpaceObject so
 			*	It will have the drawable feature by itself.
 			*	The job of this function will provide the unique information
 			*	of each planet
 			*	
-			*	@oarams: sf::Vector2f -- The Initial position of the planet
+			*	@params: sf::Vector2f -- The Initial position of the planet
 			*			 sf::Vector2u -- Velocity of the planet
 			*		 	 double  -- the mass of the planet
 			*/
 			Body (sf::Vector2f initial_pos, sf::Vector2u velocity, 
 					sf::Texture texture, double mass) 
 				: SpaceObject (initial_pos, velocity, mass), planet_texture(textures);
+        
+            /*
+            *   @brief: Destructor of the Body object
+            *   @params: none
+            *   @return: none
+            */
+            ~Body();
 
-			/**
+			/** @author: Hung Q Nguyen
 			*   @brief  Step Function to get the XOR value of the seed with space position
 			*	The step() function will look for the space position on the initial seed.
 			*	After that, it will generate another integer by getting the result of XOR
@@ -37,7 +44,7 @@ namespace universe {
 			*/
 			int step(double times);
 
-			/**
+			/** @author: Hung Q Nguyen
 			*   @brief updateSeed funtion will update the seed
 			*	Since the step() function is called, the new number generated and the
 			* 	vector positions changes, updateSeed() function will automatically
@@ -50,7 +57,7 @@ namespace universe {
 
 			void updatePosition();  // update seed everytime the function is called
 
-			/**
+			/** @author: Hung Q Nguyen
 			*   @brief toString() method of SpaceObject class
 			*	Overloading function will make a cast to SpaceObject class and treat
 			*	LFSR object (constructor) as a string.
@@ -61,7 +68,7 @@ namespace universe {
 			*/
 			friend std::istream& operator <<(std::istream&, const SpaceObject&);
 
-			/*
+			/*  @author: Hung Q Nguyen
 			*	@brief: Calculating the netforce between the planet to the sun
 			*	at the current times
 			*
@@ -71,14 +78,14 @@ namespace universe {
 			sf::Vector2f calNetforce(double times);
 
 
-			/*
+			/*  @author: Hung Q Nguyen
 			*	@brief: Calculating the acceleration of the planet at the curernt time
 			*	@param: double times: -- the current time calculating
 			*	@return: sf::Vector2u -- Getting the values calculated
 			*/
 			sf::Vector2u calAcceleration(double times, double massgf);
 
-			/*
+			/*  @author: Hung Q Nguyen
 			*	@brief: Calculating the vector of velocity at the current time
 			*	@param: double times: -- the current time calculating
 			*	@return: sf::Vector2u -- Getting the values calculated
@@ -89,21 +96,34 @@ namespace universe {
 			LIST OF GETTERS AND SETTERS
 			***************************************/
 
-			/*
+			/*  @author: Hung Q Nguyen
 			* 	@brief: Setting value for mass of the planet
 			*	@param: double mass -- Value of mass to assign
 			*	@return: void
 			*/
 			void setMass(double mass) {mass_ = mass;}
 
-			/*
-			* @brief: Setting
+			/*  @author: Hung Q Nguyen
+			*   @brief: Getting the value of the curret planet
+            *   @params: none
+            *   @return: double -- the mass value of the current planet
 			*/
 			double getMass() {return mass_;}
-
+        
+            /*  @author: Hung Q Nguyen
+            *   @brief: Setting value of times
+            *   @params: double -- value of times to assign
+            *   @return: void
+            **/
 			void setTimes(double times) {times_ = times;}
+        
+            /*  @author: Hung Q Nguyen
+            *   @brief: Getting the value of times
+            *   @params: None
+            *   @return: double -- Value of times
+            */
 			double getTimes() {return times_;}
-
+        
 			void setBodyTexture(sf::Texture texture) {pTexture_ = texture;}
 			sf::Texture getBodyTexture() {return pTexture_;}
 
