@@ -99,6 +99,8 @@ public:
 
 	/*  @author: Hung Q Nguyen
 	*	@brief: Calculating the vector of velocity at the current time
+	*	After Calculating the velocity, it will set the velocity to
+	* 	the current spaceobject by calling this->setVelocity()
 	*	@param: double times: -- the current time calculating
 	*	@return: sf::Vector2u -- Getting the values calculated
 	*/
@@ -150,29 +152,12 @@ public:
     */
 	sf::Vector2u getAcceleration() {return acceleration_;}
 
-	/*  @author: Hung Q Nguyen
-    *   @brief: Getting the value of Velocity
-    *   @params: None
-    *   @return: sf::Vector2u -- Value of velocity
-    */
-	sf::Vector2u getVelocity() {return velocity_;}
-
-	/*  @author: Hung Q Nguyen
-    *   @brief: Getting the value of current position
-    *   @params: None
-    *   @return: sf::Vector2f -- Value of position
-    */
-	sf::Vector2f getPosition() {return position_;}
-
  private:
-	double mass_;  ///< Mass of the planet's body
 	double times_;  ///< Counting the time that the planet has moved
 
 	sf::Texture pTexture_;  ///< Texture of the planet
 	sf::Vector2f netForce_;  ///< net force between planet and the Sun
 	sf::Vector2u acceleration_;  ///< the acceleration of 
 								 ///< the planet the the currentime
-	sf::Vector2u velocity_;  ///< Velocity at the current time
-	sf::Vector2f position_;  ///< Position at the current time
 };
 }
