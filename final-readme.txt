@@ -50,6 +50,11 @@ General Work: (Work has been discussed and decided together)
 		- getVelocity (object Planet) -- Gets Velocity
 		- getSize(int radius)  -- Gets size of each planet
 
+	+ Extra Credits Features:
+		- Making a spaceship moving around the universe
+		- Clicking on any planet will display a table at the corner of the screen
+		  which shows the information of the current space (velocity, coodinate, name, acceleration)...
+
 Initial Splited Works:
 
 Author: Hung Q Nguyen
@@ -61,7 +66,6 @@ Author: Daniel Santos
 
 Together:
 	+ We work on the Universe class and Unit Testing together.
-
 
 * Todo List:
 	+ Counting stars base on window size
