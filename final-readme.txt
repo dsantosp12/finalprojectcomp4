@@ -74,3 +74,4 @@ Together:
 Work Done by Daniel Santos:
     + 4/20 - Implemented the header file for the SpaceObject & Star classes.
     + 4/21 - Added a new constructor to the Star class.
+
