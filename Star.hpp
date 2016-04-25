@@ -28,8 +28,15 @@ class Star : public SpaceObject {
    *  object. This constructor will generate a random
    *  position and radius for the object which will be
    *  used for the sf::CircleShape.
+
+   *  @test: Hung Q Nguyen
+   *  Unit Testing: There are multiple ways for testing this
+   *  object by using this object to call the existed functions
+   *  There are no unique properties for the default constructor
+   *  to test.
    * */
   Star();
+
   /**
    *  @brief  This a constructor that will allow the
    *  make a Start object with properties that it wants.
@@ -39,8 +46,16 @@ class Star : public SpaceObject {
    *  to zero becuase this is a static/non-moving object.
    *
    *  @param  sf::Vector2f location, double mass, double radius
+
+   *  @test: Hung Q Nguyen
+   *  Unit Testing: to check if the SpaceObject will throw
+   *  an exeption if it took a negative mass or not mass <= 0
+   *  Same idea, check it with the negative radius
+   *  BOOT_REQUIRE_THROW(SpaceObject(location, negative int, radius))
+   *  BOOT_REQUIRE_THROW(SpaceObject(location, mass, negative int))
    * */
   Star(sf::Vector2f location, double mass, double radius);
+
   /**
    *  @brief  Destructor of the Star object.
    * */
@@ -55,6 +70,7 @@ class Star : public SpaceObject {
    *  @param  sf::RenderTarget &target, sf::RenderStates states
    * */
   virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+
   /**
    *  @brief  This method will be used for the std::generate()
    *  algorithm to generate a random position. This uses the
@@ -63,6 +79,7 @@ class Star : public SpaceObject {
    *  @return sf::Vector2f
    * */
   sf::Vector2f positionGenerator();
+  
   /**
    *  @brief  This method will be used for the std::generate()
    *  algorithm to generate a random position. This uses the
