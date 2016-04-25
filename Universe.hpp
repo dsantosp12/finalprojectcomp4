@@ -29,6 +29,12 @@ class Universe {
    *  Which is included the stars and planets
    *  @params: none
    *  @return: none
+
+   *  @test: Hung Q Nguyen
+   *  Unit Testing: There are multiple ways for testing this
+   *  object by using this object to call the existed functions
+   *  There are no unique properties for the default constructor
+   *  to test.
    */
   Universe();
 
@@ -55,6 +61,12 @@ class Universe {
    *  translate it to the vector2f from sfml
    *  @params: float x -- x position and float y -- y position
    *  @return: sf::Vector2f -- coordinate vector
+
+    *  @test: Hung Q Nguyen
+   *  Unit Testing: to test this function, we will pass in two
+   *  floats to the function and check if it returns the exact vector
+   *  or not
+   *  BOOST_REQUIRE_EQUAL(sf::Vector2f(0.5,0.5), translateCoordinates(0.5,0.5))
    */
   sf::Vector2f translateCoordinates(float x, float y);
 
