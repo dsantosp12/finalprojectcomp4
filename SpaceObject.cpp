@@ -13,11 +13,11 @@ Universe::SpaceObject::~SpaceObject() {
 }
 
 const sf::Vector2f& Universe::SpaceObject::getLocation() const {
-  return location_;
+  return position_;
 }
 
 void Universe::SpaceObject::setLocation(const sf::Vector2f &location) {
-  location_ = location;
+  position_ = location;
 }
 
 double Universe::SpaceObject::getMass() const {
