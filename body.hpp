@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <vector>
+#include <math.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/Windows.hpp>
 #include <SFML/System.hpp>
@@ -32,8 +33,7 @@ public:
 	 *		 	 double  -- the mass of the planet
 	 */
 	Body (sf::Vector2f initial_pos, sf::Vector2u velocity, 
-	  sf::Texture texture, double mass) 
-	  : SpaceObject (initial_pos, velocity, mass), planet_texture(textures);
+	  sf::Texture texture, double mass);
 
 	/*
 	 *   @brief: Destructor of the Body object
@@ -66,7 +66,6 @@ public:
 	*   @param  nothing
 	*   @return nothing
 	*/
-
 	void updatePosition();  // update seed everytime the function is called
 
 	/** @author: Hung Q Nguyen
@@ -75,20 +74,22 @@ public:
 	*	LFSR object (constructor) as a string.
 	*	Using to display the coordiates at the bottom of window
 	*
-	*   @param  nothing
+	*   @param  input stream
 	*   @return nothing
 	*/
-	friend std::istream& operator <<(std::istream& input, const SpaceObject&);
+	friend std::istream& operator <<(std::istream& input) {
+		input >> x_pos >> y_pos >> x_vel >> y_vel >> mass_ >> file_name;
+	}
 
 	/*  @author: Hung Q Nguyen
 	*	@brief: Calculating the netforce between the planet to the sun
 	*	at the current times
 	*
-	*	@param: double times -- the current time calculating
-	*	@return: sf::Vector2f -- Basically getting the private variables of the class
+	*	@param: radius, mass of planet1, mass of planet2
+	*	@return: double
+	*	Edited: 4/26 -- Hung Q Nguyen
 	*/
-	sf::Vector2f calNetforce(double times);
-
+	double calNetforce(double radius, double planet1_mass, double planet2_mass);
 
 	/*  @author: Hung Q Nguyen
 	*	@brief: Calculating the acceleration of the planet at the curernt time
@@ -125,11 +126,47 @@ public:
 	double getTimes() {return times_;}
 	
 	/*  @author: Hung Q Nguyen
-    *   @brief: Setting the texture
-    *   @params: texture to set
+    *   @brief: Setting the texture from
+    *	file name loaded from text tile.
+    *   @params: none
     *   @return: none
     */
-	void setBodyTexture(sf::Texture texture) {pTexture_ = texture;}
+	void setBodyTexture(sf::Texture texture) {pTexture_ = texture};
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Create the sprite from
+    *	the texture;
+    *   @params: none
+    *   @return: none
+    *	Added -- 4/26/2016
+    */
+	void createBodyTexture();
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Create the texture from
+    *	file name loaded from text tile.
+    *   @params: none
+    *   @return: none
+    *	Added -- 4/26/2016
+    */
+	void createBodySprite();
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Setting the texture from
+    *	file name loaded from text tile.
+    *   @params: none
+    *   @return: none
+    *	Added -- 4/26/2016
+    */
+	void setBodySprite(sf::Sprite sprite) {pSprite_ = sprite};
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Getting the Sprite of Body
+    *   @params: None
+    *   @return: Sprite
+    *	Added: 4/26/2016
+    */
+	sf::Sprite getSprite() {return pSprite_;}
 
 	/*  @author: Hung Q Nguyen
     *   @brief: Getting the Texture of Body
@@ -141,9 +178,9 @@ public:
 	/*  @author: Hung Q Nguyen
     *   @brief: Getting the value of netforce
     *   @params: None
-    *   @return: sf::Vector2f -- Value of Netforce
+    *   @return: double -- Value of Netforce
     */
-	sf::Vector2f getNetForce() {return netForce_;}
+	double getNetForce() {return netForce_;}
 
 	/*  @author: Hung Q Nguyen
     *   @brief: Getting the value of acceleration
@@ -152,12 +189,44 @@ public:
     */
 	sf::Vector2u getAcceleration() {return acceleration_;}
 
+	/*  @author: Hung Q Nguyen
+    *   @brief: Calculating the distance to the Sun
+    *   @params: none
+    *   @return: none
+    *	Added -- 4/26/2016
+    */
+	void calDistanceToSun();
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Calculating the distance to the Sun
+    *   @params: none
+    *   @return: none
+    *	Added -- 4/26/2016
+    */
+	void setDistanceToSun(double distance) {distanceToSun = distace;}
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Calculating the center
+    *   @params: none
+    *   @return: none
+    *	Added -- 4/26/2016
+    */
+	void calCenterLocation(double window_width, double window_height);
+
  private:
 	double times_;  ///< Counting the time that the planet has moved
 
 	sf::Texture pTexture_;  ///< Texture of the planet
-	sf::Vector2f netForce_;  ///< net force between planet and the Sun
+	sf::Sprite pSprite_;  ///< Sprite of the current planet
+	double netForce_;  ///< net force between planet and the Sun
 	sf::Vector2u acceleration_;  ///< the acceleration of 
 								 ///< the planet the the currentime
+
+	// Added more variables for the need -- 4/26/2016 -- Hung Nguyen
+	float x_pos, y_pos, x_vel, y_vel, mass_;
+	std::string file_name;  ///< Taking the name of the planet: e.g: sun.gif
+	double distanceToSun;  ///< Measure distance from planet to the sun
+	double x_center, y_center;  ///< The center of the Window
+								///< This is also the sun position
 };
 }
