@@ -8,7 +8,11 @@
 *  Universe which contains the classes definition
 *  for Universe class -- the completed Universe
 * */
+#ifndef PS4_UNIVERSE_HPP
+#define PS4_UNIVERSE_HPP
+
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 #include <vector>
 #include <string>
 #include "body.hpp"
@@ -138,3 +142,4 @@ class Universe {
 };
 
 }
+#endif  // PS4_SPACEOBJECT_HPP

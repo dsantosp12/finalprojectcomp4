@@ -13,6 +13,7 @@
 #define PS4_STAR_HPP
 
 #include <SFML/Graphics.hpp>
+#include <algorithm>
 #include "SpaceObject.hpp"
 
 namespace Universe {
@@ -54,7 +55,7 @@ class Star : public SpaceObject {
    *  BOOT_REQUIRE_THROW(SpaceObject(location, negative int, radius))
    *  BOOT_REQUIRE_THROW(SpaceObject(location, mass, negative int))
    * */
-  Star(sf::Vector2f location, double mass, double radius);
+  Star(sf::Vector2f location, double mass);
 
   /**
    *  @brief  Destructor of the Star object.
@@ -89,7 +90,7 @@ class Star : public SpaceObject {
    * */
   float radiusGenerator();
   sf::CircleShape shape_;   // < This is the a circle shape of the object
-  double          radius_;  // < This holds the radius of the circle
+  float           radius_;  // < This holds the radius of the circle
 };
 
 }

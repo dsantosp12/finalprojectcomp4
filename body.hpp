@@ -26,13 +26,13 @@ public:
 	 *	It will have the drawable feature by itself.
 	 *	The job of this function will provide the unique information
 	 *	of each planet
-	 *	
+	 *
 	 *	@params: sf::Vector2f -- The Initial position of the planet
 	 *			 sf::Vector2u -- Velocity of the planet
 	 *		 	 double  -- the mass of the planet
 	 */
-	Body (sf::Vector2f initial_pos, sf::Vector2u velocity, 
-	  sf::Texture texture, double mass) 
+	Body (sf::Vector2f initial_pos, sf::Vector2u velocity,
+	  sf::Texture texture, double mass)
 	  : SpaceObject (initial_pos, velocity, mass), planet_texture(textures);
 
 	/*
@@ -62,7 +62,7 @@ public:
 	* 	vector positions changes, updateSeed() function will automatically
 	*	called in the step() function and create a string based on the elements
 	*	of the vector of vector2f's position
-	*	
+	*
 	*   @param  nothing
 	*   @return nothing
 	*/
@@ -123,7 +123,7 @@ public:
     *   @return: double -- Value of times
     */
 	double getTimes() {return times_;}
-	
+
 	/*  @author: Hung Q Nguyen
     *   @brief: Setting the texture
     *   @params: texture to set
@@ -157,7 +157,7 @@ public:
 
 	sf::Texture pTexture_;  ///< Texture of the planet
 	sf::Vector2f netForce_;  ///< net force between planet and the Sun
-	sf::Vector2u acceleration_;  ///< the acceleration of 
+	sf::Vector2u acceleration_;  ///< the acceleration of
 								 ///< the planet the the currentime
 };
 }
