@@ -6,20 +6,13 @@
 #include "body.hpp"
 
 #define G 6.67e-11
+#define E 1e+9
 
 Universe::Body (sf::Vector2f initial_pos, sf::Vector2u velocity, 
 	  sf::Texture texture, double mass)
-	: SpaceObject (initial_pos, velocity, mass), planet_texture(textures) {
+	: SpaceObject (initial_pos, velocity, mass), planet_texture(textures) {}
 
-	  }
-
-Universe::~Body () {
-
-}
-
-sf::Vector2f Universe::calNetforce(double times) {
-
-}
+Universe::~Body () {}
 
 void Universe::createBodyTexture() {
 	sf::Texture newTexture;
@@ -105,5 +98,17 @@ double Universe::calNetforce(double radius, double planet1_mass, double planet2_
 	netForce = (F * planet1_mass * planet2_mass) / (radius ^ 2);
 
 	return netForce;
+}
+
+sf::Vector2u Universe::calVelocity(double times) {
+
+}
+
+void Universe::updatePosition() {
+	// Update position
+	// Update new Position from radius to the sun and the
+	// coordinate of the sun
+	x_pos = distanceToSun + x_center;
+	y_pos = (y_pos / E) + y_center;
 }
 

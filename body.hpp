@@ -79,6 +79,7 @@ public:
 	*/
 	friend std::istream& operator <<(std::istream& input) {
 		input >> x_pos >> y_pos >> x_vel >> y_vel >> mass_ >> file_name;
+		return input;
 	}
 
 	/*  @author: Hung Q Nguyen
