@@ -8,13 +8,13 @@
 #define G 6.67e-11
 #define E 1e+9
 
-Universe::Body (sf::Vector2f initial_pos, sf::Vector2u velocity, 
+Universe::Body::Body (sf::Vector2f initial_pos, sf::Vector2u velocity, 
 	  sf::Texture texture, double mass)
 	: SpaceObject (initial_pos, velocity, mass), planet_texture(textures) {}
 
-Universe::~Body () {}
+Universe::Body::~Body () {}
 
-void Universe::createBodyTexture() {
+void Universe::Body::createBodyTexture() {
 	sf::Texture newTexture;
 	// temporary created a texture with size 400x400
 	if (!newTexture.create(400,400)) {
@@ -34,7 +34,7 @@ void Universe::createBodyTexture() {
 	setBodyTexture(newTexture);
 }
 
-void Universe::createBodyTexture() {
+void Universe::Body::createBodyTexture() {
 	sf::Sprite newSprite;
 	sf::Texture current = getBodyTexture();
 
@@ -51,19 +51,20 @@ void Universe::createBodyTexture() {
 	setBodySprite(newSprite);
 }
 
-void Universe::calDistanceToSun() {
+void Universe::Body::calDistanceToSun() {
 	// calculate the distance to sun -- xpos only
 	double distane = x_pos / (1e+9);
 	// Set the value to local variable
 	setDistanceToSun(distane);
 }
 
-void Universe::calCenterLocation(double window_width, double window_height) {
+void Universe::Body::calCenterLocation (
+	double window_width, double window_height) {
 	x_center = window_width / 2;
 	y_center = window_height / 2;
 }
 
-void Universe::updatePosition() {
+void Universe::Body::updatePosition () {
 	// If the planet is moving at IV quad
 	if (x_pos >= x_center && y_pos <= y_center) {
 		x_pos -= x_vel;
@@ -89,22 +90,24 @@ void Universe::updatePosition() {
 	}
 }
 
-double Universe::calNetforce(double radius, double planet1_mass, double planet2_mass) {
+double Universe::Body::calNetforce(
+	double radius, double planet1_mass, double planet2_mass) {
 	double netForce = 0.0;
 
 	if (radius < 1)
 		return -1;
 	// F = Gm1m2 / r^2
-	netForce = (F * planet1_mass * planet2_mass) / (radius ^ 2);
+	// calculate the value of netforce with pure calculation
+	netForce = (F * planet1_mass * planet2_mass) / (radius * radius);
 
 	return netForce;
 }
 
-sf::Vector2u Universe::calVelocity(double times) {
+sf::Vector2u Universe::Body::calVelocity(double times) {
 
 }
 
-void Universe::updatePosition() {
+void Universe::Body::updatePosition() {
 	// Update position
 	// Update new Position from radius to the sun and the
 	// coordinate of the sun
