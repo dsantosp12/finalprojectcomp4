@@ -1,3 +1,6 @@
+#=================================================
+# NEEDED PROPERTIES
+#=================================================
 OBJECTS = body.o star.o space.o universe.o orbit.o
 CFLAGS = -c -g -Wall
 FLAGS = -Wall -Werror -ansi -pedantic -g
@@ -6,6 +9,8 @@ LINK = -L /usr/lib -I /usr/include
 EXECUTABLE = orbit
 CC = g++
 
+# ===========================================
+# Make the final program
 all: $(EXECUTABLE)
 
 # ===========================================

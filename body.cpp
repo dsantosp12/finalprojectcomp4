@@ -5,8 +5,8 @@
 #include <SFML/System>
 #include "body.hpp"
 
-#define G 6.67e-11
-#define E 1e+9
+const double G = 6.67e-11
+const double E = 1e+9
 
 Universe::Body::Body (sf::Vector2f initial_pos, sf::Vector2u velocity, 
 	  sf::Texture texture, double mass)
@@ -103,8 +103,16 @@ double Universe::Body::calNetforce(
 	return netForce;
 }
 
-sf::Vector2u Universe::Body::calVelocity(double times) {
+void Universe::Body::calVelocity(double times, SpaceObject& object) {
+	// Get current Acceleration from the object
+	sf::Vector2u currentAccel = object.getAcceleration();
+	// Get current Velocity from space object
+	sf::Vector2f currentVel = object.getVelocity();
 
+	x_vel = currentVel.x + currentAccel.x * times;
+	y_vel = currentVel.y + currentAccel.y * times;
+
+	object.setVelocity(sf::Vector2f(x_vel, y_vel));
 }
 
 void Universe::Body::updatePosition() {
@@ -113,5 +121,11 @@ void Universe::Body::updatePosition() {
 	// coordinate of the sun
 	x_pos = distanceToSun + x_center;
 	y_pos = (y_pos / E) + y_center;
+}
+
+void Universe::Body::step(double times) {
+	// Update position from step
+	x_pos = x_pos + (x_vel * times);
+	y_pos = y_pos + (y_vel * times);
 }
 

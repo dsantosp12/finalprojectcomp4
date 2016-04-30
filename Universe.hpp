@@ -130,8 +130,9 @@ class Universe {
    */
   void updateUniverse();
 
-  std::vector<Body> bodyList_;  ///< List of Bodies
-  std::vector<Star> starList_;  ///< List of Stars
+  const int numStars = 100;  ///< Number of stars
+  std::vector<Body*> bodyList_;  ///< List of Bodies
+  std::vector<Star*> starList_;  ///< List of Stars
   int elapsedTime_;   ///< Elapsed Time
   sf::Font fontTime_;  ///< Font of Text displaying in the screen
   sf::Text textTime_;  ///< Text of the Planet.
