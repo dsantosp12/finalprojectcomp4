@@ -25,18 +25,13 @@ namespace Universe {
 class Star : public SpaceObject {
  public:
   /**
-   *  @brief  This is the empty construct of the Star
-   *  object. This constructor will generate a random
-   *  position and radius for the object which will be
-   *  used for the sf::CircleShape.
-
-   *  @test: Hung Q Nguyen
-   *  Unit Testing: There are multiple ways for testing this
-   *  object by using this object to call the existed functions
-   *  There are no unique properties for the default constructor
-   *  to test.
+   *  @brief  This is the constructor for the star, and
+   *  it takes a the dimesion of the window in order to
+   *  generate stars within the window size.
+   *
+   *  @param sf::Vector2u
    * */
-  Star();
+  Star(sf::Vector2u winDimesion);
 
   /**
    *  @brief  This a constructor that will allow the
@@ -55,7 +50,7 @@ class Star : public SpaceObject {
    *  BOOT_REQUIRE_THROW(SpaceObject(location, negative int, radius))
    *  BOOT_REQUIRE_THROW(SpaceObject(location, mass, negative int))
    * */
-  Star(sf::Vector2f location, double mass);
+  Star(sf::Vector2f location, double mass = 0.0);
 
   /**
    *  @brief  Destructor of the Star object.
@@ -76,10 +71,13 @@ class Star : public SpaceObject {
    *  @brief  This method will be used for the std::generate()
    *  algorithm to generate a random position. This uses the
    *  std::rand() function to generate the x and y points.
+   *  It also uses the param range to generate the random
+   *  number with a range.
    *
+   *  @param  sf::Vector2u  range
    *  @return sf::Vector2f
    * */
-  sf::Vector2f positionGenerator();
+  sf::Vector2f positionGenerator(sf::Vector2u range);
   
   /**
    *  @brief  This method will be used for the std::generate()

@@ -13,9 +13,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/System.hpp>
 #include <vector>
 #include <string>
-#include "body.hpp"
 #include "SpaceObject.hpp"
 #include "Star.hpp"
 
@@ -117,7 +117,14 @@ class Universe {
    *  @return: none
    */
   void fetchStar();
-
+  /**
+   *  @author:  Daniel Santos
+   *  @brief:   This method will draw the stars
+   *  using the window object.
+   *  @param:   none
+   *  @return:  none
+   * */
+  void drawStars();
   /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: Update the elapsed time as long as
    *  the program is running.
@@ -134,9 +141,12 @@ class Universe {
    */
   void updateUniverse();
 
-  const int numStars = 100;  ///< Number of stars
-  std::vector<Body*> bodyList_;  ///< List of Bodies
-  std::vector<Star*> starList_;  ///< List of Stars
+  unsigned int winWidth_;
+  unsigned int winHeight_;
+  const unsigned int numStars = 100;  ///< Number of stars
+  sf::RenderWindow window_;
+//  std::vector<Body*> bodyList_;  ///< List of Bodies
+  std::vector<Star> starList_;  ///< List of Stars
   int elapsedTime_;   ///< Elapsed Time
   sf::Font fontTime_;  ///< Font of Text displaying in the screen
   sf::Text textTime_;  ///< Text of the Planet.

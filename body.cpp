@@ -8,7 +8,7 @@
 const double G = 6.67e-11;
 const double E = 1e+9;
 
-Universe::Body::Body (sf::Vector2f initial_pos, sf::Vector2u velocity, 
+Universe::Body::Body (sf::Vector2f initial_pos, sf::Vector2u velocity,
 	  sf::Texture texture, double mass)
 	: SpaceObject (initial_pos, velocity, mass), planet_texture(textures) {}
 

@@ -13,7 +13,7 @@
 #include <vector>
 #include <math.h>
 #include <SFML/Graphics.hpp>
-#include <SFML/Windows.hpp>
+#include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
 #include "Universe.hpp"
@@ -78,7 +78,7 @@ public:
 	*   @return istream&
 	*/
 	std::istream& operator <<(std::istream& in_stream, const Body& body) {
-		in_stream >> body.x_pos >> body.y_pos >> 
+		in_stream >> body.x_pos >> body.y_pos >>
 			body.x_vel >> body.y_vel >> body.mass_ >> body.file_name;
 		return in_stream;
 	}
@@ -156,7 +156,7 @@ public:
     *   @params: none
     *   @return: none
     */
-	void setBodyTexture(sf::Texture texture) {pTexture_ = texture};
+	void setBodyTexture(sf::Texture texture) {pTexture_ = texture;};
 
 	/*  @author: Hung Q Nguyen
     *   @brief: Create the sprite from
@@ -183,7 +183,7 @@ public:
     *   @return: none
     *	Added -- 4/26/2016
     */
-	void setBodySprite(sf::Sprite sprite) {pSprite_ = sprite};
+	void setBodySprite(sf::Sprite sprite) {pSprite_ = sprite;};
 
 	/*  @author: Hung Q Nguyen
     *   @brief: Getting the Sprite of Body
