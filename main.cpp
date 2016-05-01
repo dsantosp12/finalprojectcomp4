@@ -1,5 +1,3 @@
-#include <iostream>
-#include "Star.hpp"
 #include "Universe.hpp"
 
 int main() {
