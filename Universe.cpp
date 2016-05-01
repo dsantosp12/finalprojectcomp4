@@ -19,7 +19,6 @@ void Universe::Universe::fetchStar() {
 	}
 }
 
-
 /* **********************************
 @ Implemented by Hung Q. Nguyen
 @ Note:

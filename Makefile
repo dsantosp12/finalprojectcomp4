@@ -1,7 +1,7 @@
 #=================================================
 # NEEDED PROPERTIES
 #=================================================
-OBJECTS = body.o star.o space.o universe.o orbit.o
+OBJECTS = body.o star.o space.o universe.o main.o
 CFLAGS = -c -g -Wall
 FLAGS = -Wall -Werror -ansi -pedantic -g
 LIB = -lsfml-graphics -lsfml-windows -lsflm-audio -lsfml-system
@@ -15,10 +15,10 @@ all: $(EXECUTABLE)
 
 # ===========================================
 # Creating Executables
-orbit: orbit.o
+orbit: main.o
 	@echo '' # New line
 	@echo ' ------ 	 target: $@'
-	$(CC) $(FLAGS) orbit.o -o $(EXECUTABLE) $(LINK) $(LIB)
+	$(CC) $(FLAGS) main.o -o $(EXECUTABLE) $(LINK) $(LIB)
 
 # ===========================================
 # Creating objects
