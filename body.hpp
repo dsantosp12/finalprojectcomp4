@@ -52,9 +52,9 @@ public:
 	 *	After that, it will shift the current seed one to the left and then put the
 	 *	current generated value to the last position of the seed.
 	 *   @param  nothing
-	 *   @return Integer (value of the current generated integer)
+	 *   @return nothing
 	 */
-	int step(double times);
+	void step(double times);
 
 	/** @author: Hung Q Nguyen
 	*   @brief updateSeed funtion will update the seed
@@ -69,18 +69,42 @@ public:
 	void updatePosition();  // update seed everytime the function is called
 
 	/** @author: Hung Q Nguyen
-	*   @brief toString() method of SpaceObject class
+	*   @brief input method of SpaceObject class
 	*	Overloading function will make a cast to SpaceObject class and treat
-	*	LFSR object (constructor) as a string.
+	*	object (constructor) as a string.
 	*	Using to display the coordiates at the bottom of window
 	*
-	*   @param  input stream
-	*   @return nothing
+	*   @param  input stream and the current object
+	*   @return istream&
 	*/
-	friend std::istream& operator <<(std::istream& input) {
-		input >> x_pos >> y_pos >> x_vel >> y_vel >> mass_ >> file_name;
-		return input;
+	std::istream& operator <<(std::istream& in_stream, const Body& body) {
+		in_stream >> body.x_pos >> body.y_pos >> 
+			body.x_vel >> body.y_vel >> body.mass_ >> body.file_name;
+		return in_stream;
 	}
+
+	/** @author: Hung Q Nguyen
+	*   @brief toString() method of SpaceObject class
+	*	Overloading function will make a cast to SpaceObject class and treat
+	*	object (constructor) as a string.
+	*	Using to display the coordiates at the bottom of window
+	*
+	*   @param  output stream
+	*   @return ostream&
+	*	@note added on 4/30/2016
+	*/
+	std::ostream& operator <<(std::ostream& out_stream, const Body& body)
+	{
+		out_stream << " " << body._xpos << " ";
+		out_stream << " " << body._ypos << " ";
+		out_stream << " " << body._xvel << " ";
+		out_stream << " " << body._yvel << " ";
+		out_stream << " " << body._mass << " ";
+		out_stream << " " << body._filename << " ";
+
+		return out_stream;
+	}
+
 
 	/*  @author: Hung Q Nguyen
 	*	@brief: Calculating the netforce between the planet to the sun
@@ -104,9 +128,9 @@ public:
 	*	After Calculating the velocity, it will set the velocity to
 	* 	the current spaceobject by calling this->setVelocity()
 	*	@param: double times: -- the current time calculating
-	*	@return: sf::Vector2u -- Getting the values calculated
+	*	@return: void -- Getting the values calculated through setter
 	*/
-	sf::Vector2u calVelocity(double times);
+	void updateVelocity(double times);
 
 	/**************************************
 	LIST OF GETTERS AND SETTERS
