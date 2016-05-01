@@ -1,5 +1,7 @@
 #include "Universe.hpp"
 
+const unsigned int numStars = 100;  ///< Number of stars
+
 Universe::Universe::Universe() {
   // Seed for the random generators
   std::srand(time(0));
@@ -43,13 +45,14 @@ void Universe::Universe::run() {
 @ Implemented by Hung Q. Nguyen & Daniel Santos
 @ Note:
 	+ 4/30: First time Implemented
-    + 5/01: Modified the method
+  + 5/01: Modified the method
 * ***********************************/
 void Universe::Universe::fetchStar() {
   // Instanciate Stars and push it to starList
   for (unsigned int i = 0; i < numStars; i++)
 		starList_.push_back(Star(window_.getSize()));
 }
+
 /* **********************************
 @ Implemented by Daniel Santos
 @ Note:
@@ -59,6 +62,7 @@ void Universe::Universe::drawStars() {
   for (unsigned int i = 0; i < starList_.size(); i++)
     window_.draw(starList_.at(i));  // Draw the stars
 }
+
 /* **********************************
 @ Implemented by Hung Q. Nguyen
 @ Note:
