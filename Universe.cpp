@@ -3,7 +3,7 @@
 const unsigned int numStars = 100;  ///< Number of stars
 const unsigned int numBodies = 6;
 
-Universe::Universe::Universe(int size)
+Universe::Universe::Universe(int size, std::vector<Body*>& planetList)
   :winSize_(size) {
   // Seed for the random generators
   std::srand(time(0));
@@ -56,7 +56,7 @@ void Universe::Universe::run() {
 void Universe::Universe::fetchStar() {
   // Instanciate Stars and push it to starList
   for (unsigned int i = 0; i < numStars; i++)
-		starList_.push_back(Star(window_.getSize()));
+		starList_.push_back(Star(window_.getSize(), starList_));
 }
 
 /* **********************************

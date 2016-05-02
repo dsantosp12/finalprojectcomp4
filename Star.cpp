@@ -10,9 +10,13 @@ const static sf::Color STAR_COLORS[NUM_COLORS] = {
     sf::Color(218, 217, 223, TRANSPARENCY)
 };
 
-Universe::Star::Star(sf::Vector2u winDimesion) : SpaceObject() {
+//struct PositionCheck() {
+//  PositionCheck
+//}
+
+Universe::Star::Star(sf::Vector2u winDimesion, std::vector<Star>& starList) : SpaceObject() {
   shape_.setRadius(this->radiusGenerator());
-  shape_.setPosition(this->positionGenerator(winDimesion));
+  shape_.setPosition(this->positionGenerator(winDimesion, starList));
   shape_.setFillColor(STAR_COLORS[std::rand()%NUM_COLORS]);
 }
 
@@ -32,7 +36,7 @@ void Universe::Star::draw(sf::RenderTarget &target,
   target.draw(shape_, states);
 }
 
-sf::Vector2f Universe::Star::positionGenerator(sf::Vector2u range) {
+sf::Vector2f Universe::Star::positionGenerator(sf::Vector2u range, std::vector<Star>& starList) {
   return sf::Vector2f(std::rand()%range.x, std::rand()%range.y);
 }
 

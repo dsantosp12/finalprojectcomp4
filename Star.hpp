@@ -31,7 +31,7 @@ class Star : public SpaceObject {
    *
    *  @param sf::Vector2u
    * */
-  Star(sf::Vector2u winDimesion);
+  Star(sf::Vector2u winDimesion, std::vector<Star>& starList);
 
   /**
    *  @brief  This a constructor that will allow the
@@ -77,7 +77,7 @@ class Star : public SpaceObject {
    *  @param  sf::Vector2u  range
    *  @return sf::Vector2f
    * */
-  sf::Vector2f positionGenerator(sf::Vector2u range);
+  sf::Vector2f positionGenerator(sf::Vector2u range, std::vector<Star>& starList);
   
   /**
    *  @brief  This method will be used for the std::generate()

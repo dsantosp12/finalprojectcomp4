@@ -41,7 +41,7 @@ class Universe {
    *  There are no unique properties for the default constructor
    *  to test.
    */
-  Universe(int size);
+  Universe(int size, std::vector<Body*>& planetList);
 
   /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: The destructor of the universe object
