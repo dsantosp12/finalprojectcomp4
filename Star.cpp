@@ -10,7 +10,6 @@ const static sf::Color STAR_COLORS[NUM_COLORS] = {
 };
 
 Universe::Star::Star(sf::Vector2u winDimesion) : SpaceObject() {
-
   shape_.setRadius(this->radiusGenerator());
   shape_.setPosition(this->positionGenerator(winDimesion));
   shape_.setFillColor(STAR_COLORS[std::rand()%NUM_COLORS]);
