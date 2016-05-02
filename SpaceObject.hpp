@@ -12,10 +12,10 @@
 #ifndef PS4_SPACEOBJECT_HPP
 #define PS4_SPACEOBJECT_HPP
 
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <exception>
 #include <stdexcept>
-#include <SFML/Graphics.hpp>
 
 /**
  *  @author Daniel Santos & Hung Nguyen

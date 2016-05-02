@@ -1,6 +1,7 @@
 #include "Star.hpp"
 #define NUM_COLORS 5
 #define TRANSPARENCY 200
+
 const static sf::Color STAR_COLORS[NUM_COLORS] = {
     sf::Color(244, 202, 160, TRANSPARENCY),
     sf::Color(141, 160, 229, TRANSPARENCY),
