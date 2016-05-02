@@ -13,7 +13,8 @@ Universe::Universe::Universe(int size, std::vector<Body*>& planetList)
 
   // Generate the stars and bodies
   fetchStar();
-  fetchBody();
+  bodyList_ = planetList;
+//  fetchBody();
 }
 
 Universe::Universe::~Universe() {
@@ -37,8 +38,9 @@ void Universe::Universe::run() {
     }
     // Clear the windows
     window_.clear();
-
     // Draw the stars. Check draw stars for reference
+    // window_.draw(*bodyList_.at(0));
+
     drawStars();
     drawBodies();
 
@@ -88,7 +90,7 @@ void Universe::Universe::fetchBody() {
 * ***********************************/
 void Universe::Universe::drawBodies() {
   std::vector<Body*>::iterator iter;
-  for (iter = bodyList_.begin(); iter != bodyList_.end(); iter++) {
+  for (iter = bodyList_.begin(); iter != bodyList_.end(); ++iter) {
     window_.draw(*(*iter));
   }
 }

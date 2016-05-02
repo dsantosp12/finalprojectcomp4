@@ -5,17 +5,11 @@ const double E = 1e+9;
 
 Universe::Body::Body (int window_size)
 	: wSize_(window_size) {
+	// Get texture and Sprite
 }
-
 Universe::Body::Body (sf::Vector2f initial_pos, sf::Vector2u velocity,
 	  sf::Texture texture, double mass)
 	: SpaceObject (initial_pos, velocity, mass), pTexture_(texture) {
-	// Get the properties of the body object
-	std::cin >> *this;
-
-	// Get the link for the gif file
-	std::string link_image = "nbody/" + file_name;
-
 	// Get texture and Sprite
 	createBodyTexture();
 	createBodySprite();
@@ -24,40 +18,11 @@ Universe::Body::Body (sf::Vector2f initial_pos, sf::Vector2u velocity,
 Universe::Body::~Body () {}
 
 void Universe::Body::createBodyTexture() {
-	sf::Texture newTexture;
-	// temporary created a texture with size 400x400
-	if (!newTexture.create(400,400)) {
-		return;
-	}
-
-	// temporary loaded the texture with given filename
-	newTexture.loadFromFile(file_name, sf::IntRect(10, 10, 32,32));
-
-	// set Smooth for the textire
-	newTexture.setSmooth(true);
-
-	// don't set repeated
-	newTexture.setRepeated(false);
-
-	// Set the texture to local variable
-	setBodyTexture(newTexture);
+	pTexture_.loadFromFile(file_name);
 }
 
 void Universe::Body::createBodySprite() {
-	sf::Sprite newSprite;
-	sf::Texture current = getBodyTexture();
-
-	// Set texture to the new Sprite
-	newSprite.setTexture(current);
-
-	// Set Color
-	newSprite.setColor(sf::Color::White);
-
-	// Set initial Position
-	newSprite.setPosition(sf::Vector2f(x_pos, y_pos));
-
-	// Update the texture to local variable
-	setBodySprite(newSprite);
+	pSprite_.setTexture(pTexture_);
 }
 
 void Universe::Body::calDistanceToSun() {

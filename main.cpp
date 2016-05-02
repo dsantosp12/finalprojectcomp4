@@ -22,6 +22,7 @@ int main(int argc, char* argv[]) {
 	for (int i = 0; i < number_of_planets; i++) {
 		Universe::Body planet(WIN_SIZE);
 		std::cin >> planet;
+		std::cout << planet << std::endl;
 		planetList.push_back(&planet);
 	}
 

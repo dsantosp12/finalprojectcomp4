@@ -258,12 +258,18 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 	*   @return istream&
 	*/
 	friend std::istream& operator >>(std::istream& in_stream, Universe::Body& body) {
-		in_stream >> body.x_pos 
-							>> body.y_pos 
+		in_stream >> body.x_pos
+							>> body.y_pos
 							>> body.x_vel
 							>> body.y_vel
-							>> body.mass_
-							>> body.file_name;
+							>> body.mass_;
+		std::string file_n;
+		std::cin >> file_n;
+		std::cout << file_n;
+		body.file_name = "nbody/" + file_n;
+		body.pTexture_.loadFromFile("earth.gif");
+		body.pSprite_.setTexture(body.pTexture_);
+
 		return in_stream;
 	}
 
