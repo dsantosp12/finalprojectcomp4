@@ -1,21 +1,24 @@
 #include "Universe.hpp"
 
 const unsigned int numStars = 100;  ///< Number of stars
+const unsigned int numBodies = 6;
 
-Universe::Universe::Universe() {
+Universe::Universe::Universe(int size)
+  :winSize_(size) {
   // Seed for the random generators
   std::srand(time(0));
-  // Window properties
-  winWidth_ = 800;
-  winHeight_ = 600;
-  window_.create(sf::VideoMode(winWidth_, winHeight_), "Solar");
-  // Generate the stars
+
+  // Create the window
+  window_.create(sf::VideoMode(winSize_, winSize_), "Solar");
+
+  // Generate the stars and bodies
   fetchStar();
+  fetchBody();
 }
 
 Universe::Universe::~Universe() {
-
 }
+
 /* **********************************
 @ Implemented by Daniel Santos
 @ Note:
@@ -32,11 +35,14 @@ void Universe::Universe::run() {
           break;
       }
     }
+    // Clear the windows
     window_.clear();
 
     // Draw the stars. Check draw stars for reference
     drawStars();
+    drawBodies();
 
+    // Draw everything in on the window
     window_.display();
   }
 }
@@ -69,5 +75,20 @@ void Universe::Universe::drawStars() {
 	+ 4/30: First time Implemented
 * ***********************************/
 void Universe::Universe::fetchBody() {
+  for (unsigned int i = 0; i < numBodies; i++) {
+    Body* body = new Body(winSize_);
+    bodyList_.push_back(body);
+  }
+}
 
+/* **********************************
+@ Implemented by Hung Q. Nguyen
+@ Note:
+  + 5/1: First time Implemented
+* ***********************************/
+void Universe::Universe::drawBodies() {
+  std::vector<Body*>::iterator iter;
+  for (iter = bodyList_.begin(); iter != bodyList_.end(); iter++) {
+    window_.draw(*(*iter));
+  }
 }

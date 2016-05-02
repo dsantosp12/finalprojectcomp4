@@ -17,6 +17,7 @@
 #include <vector>
 #include <string>
 #include "SpaceObject.hpp"
+#include "body.hpp"
 #include "Star.hpp"
 
 /**
@@ -40,7 +41,7 @@ class Universe {
    *  There are no unique properties for the default constructor
    *  to test.
    */
-  Universe();
+  Universe(int size);
 
   /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: The destructor of the universe object
@@ -117,6 +118,7 @@ class Universe {
    *  @return: none
    */
   void fetchStar();
+
   /**
    *  @author:  Daniel Santos
    *  @brief:   This method will draw the stars
@@ -125,6 +127,16 @@ class Universe {
    *  @return:  none
    * */
   void drawStars();
+
+  /**
+   *  @author:  Hung nguyen
+   *  @brief:   This method will draw the Bodies
+   *  using the window object.
+   *  @param:   none
+   *  @return:  none
+   * */
+  void drawBodies();
+
   /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: Update the elapsed time as long as
    *  the program is running.
@@ -141,10 +153,9 @@ class Universe {
    */
   void updateUniverse();
 
-  unsigned int winWidth_;
-  unsigned int winHeight_;
-  sf::RenderWindow window_;
-//  std::vector<Body*> bodyList_;  ///< List of Bodies
+  int winSize_;  ///< Size of the window
+  sf::RenderWindow window_;  ///< Main window
+  std::vector<Body*> bodyList_;  ///< List of Bodies
   std::vector<Star> starList_;  ///< List of Stars
   int elapsedTime_;   ///< Elapsed Time
   sf::Font fontTime_;  ///< Font of Text displaying in the screen

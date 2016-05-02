@@ -1,16 +1,25 @@
-#include <iostream>
-#include <SFML/Audio>
-#include <SFML/Graphics>
-#include <SFML/Windows>
-#include <SFML/System>
 #include "body.hpp"
 
 const double G = 6.67e-11;
 const double E = 1e+9;
 
+Universe::Body::Body (int window_size)
+	: wSize_(window_size) {
+}
+
 Universe::Body::Body (sf::Vector2f initial_pos, sf::Vector2u velocity,
 	  sf::Texture texture, double mass)
-	: SpaceObject (initial_pos, velocity, mass), planet_texture(textures) {}
+	: SpaceObject (initial_pos, velocity, mass), pTexture_(texture) {
+	// Get the properties of the body object
+	std::cin >> *this;
+
+	// Get the link for the gif file
+	std::string link_image = "nbody/" + file_name;
+
+	// Get texture and Sprite
+	createBodyTexture();
+	createBodySprite();
+}
 
 Universe::Body::~Body () {}
 
@@ -18,7 +27,7 @@ void Universe::Body::createBodyTexture() {
 	sf::Texture newTexture;
 	// temporary created a texture with size 400x400
 	if (!newTexture.create(400,400)) {
-		return -1;
+		return;
 	}
 
 	// temporary loaded the texture with given filename
@@ -34,7 +43,7 @@ void Universe::Body::createBodyTexture() {
 	setBodyTexture(newTexture);
 }
 
-void Universe::Body::createBodyTexture() {
+void Universe::Body::createBodySprite() {
 	sf::Sprite newSprite;
 	sf::Texture current = getBodyTexture();
 
@@ -45,7 +54,7 @@ void Universe::Body::createBodyTexture() {
 	newSprite.setColor(sf::Color::White);
 
 	// Set initial Position
-	newSprite.Position(sf::Vector2f(x_pos, y_pos));
+	newSprite.setPosition(sf::Vector2f(x_pos, y_pos));
 
 	// Update the texture to local variable
 	setBodySprite(newSprite);
@@ -98,30 +107,23 @@ double Universe::Body::calNetforce(
 		return -1;
 	// F = Gm1m2 / r^2
 	// calculate the value of netforce with pure calculation
-	netForce = (F * planet1_mass * planet2_mass) / (radius * radius);
+	netForce = (G * planet1_mass * planet2_mass) / (radius * radius);
 
 	return netForce;
 }
 
-void Universe::Body::calVelocity(double times, SpaceObject& object) {
-	// Get current Acceleration from the object
-	sf::Vector2u currentAccel = object.getAcceleration();
-	// Get current Velocity from space object
-	sf::Vector2f currentVel = object.getVelocity();
-
-	x_vel = currentVel.x + currentAccel.x * times;
-	y_vel = currentVel.y + currentAccel.y * times;
-
-	object.setVelocity(sf::Vector2f(x_vel, y_vel));
+void Universe::Body::updateVelocity(double times, double accel) {
+	x_vel = x_vel + accel * times;
+	y_vel = y_vel - accel * times;
 }
 
-void Universe::Body::updatePosition() {
-	// Update position
-	// Update new Position from radius to the sun and the
-	// coordinate of the sun
-	x_pos = distanceToSun + x_center;
-	y_pos = (y_pos / E) + y_center;
-}
+// void Universe::Body::updatePosition() {
+// 	// Update position
+// 	// Update new Position from radius to the sun and the
+// 	// coordinate of the sun
+// 	x_pos = distanceToSun + x_center;
+// 	y_pos = (y_pos / E) + y_center;
+// }
 
 void Universe::Body::step(double times) {
 	// Update position from step
@@ -129,3 +131,7 @@ void Universe::Body::step(double times) {
 	y_pos = y_pos + (y_vel * times);
 }
 
+void Universe::Body::draw(sf::RenderTarget &target,
+                          sf::RenderStates states) const {
+  target.draw(pSprite_, states);
+}

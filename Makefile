@@ -15,17 +15,17 @@ all: $(EXECUTABLE)
 
 # ===========================================
 # Creating Executables
-orbit: main.o universe.o star.o space.o
+orbit: main.o universe.o star.o space.o body.o
 	@echo '' # New line
 	@echo ' ------ 	 target: $@'
-	$(CC) $(FLAGS) main.o universe.o star.o space.o -o $(EXECUTABLE) $(LINK) $(LIB)
+	$(CC) $(FLAGS) main.o universe.o body.o star.o space.o -o $(EXECUTABLE) $(LINK) $(LIB)
 
 # ===========================================
 # Creating objects
 body.o: body.cpp body.hpp SpaceObject.hpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
-	$(CC) $(CFLAGS) body.cpp body.hpp SpaceObject.hpp -o body.o
+	$(CC) $(CFLAGS) body.cpp -o body.o
 
 # ===========================================
 # Creating objects
@@ -33,7 +33,6 @@ star.o: Star.cpp Star.hpp SpaceObject.hpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
 	$(CC) $(CFLAGS) Star.cpp -o star.o
-
 
 # ===========================================
 # Creating objects
@@ -51,7 +50,7 @@ space.o: SpaceObject.cpp SpaceObject.hpp
 
 # ===========================================
 # Creating objects
-main.o: main.cpp
+main.o: main.cpp Universe.hpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
 	$(CC) $(CFLAGS) main.cpp -o main.o

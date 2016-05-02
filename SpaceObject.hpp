@@ -136,6 +136,7 @@ class SpaceObject : public sf::Drawable {
   SpaceObject(sf::Vector2f location, sf::Vector2u velocity, double mass);
 
  private:
+
   /**
    *  @brief  This is a virtual method inherited from
    *  the sf::Drawable abstract class. SpaceObject does
@@ -145,8 +146,8 @@ class SpaceObject : public sf::Drawable {
    *
    *  @param  sf::RenderTarget &target, sf::RenderStates states
    * */
-  virtual void draw(sf::RenderTarget &target, sf::RenderStates states)
-      const = 0;
+  virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const = 0;
+
   sf::Vector2f position_;  // < This is a 2D float vector
   sf::Vector2u velocity_;  // < This is a 2D unsigned int
   double       mass_;      // < This is the mass of the object

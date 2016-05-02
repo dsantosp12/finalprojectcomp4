@@ -1,4 +1,3 @@
-
 #include "SpaceObject.hpp"
 
 Universe::SpaceObject::SpaceObject() 
