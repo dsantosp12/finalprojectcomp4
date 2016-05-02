@@ -1,16 +1,26 @@
 #include "Star.hpp"
+#define NUM_COLORS 5
+#define TRANSPARENCY 200
+const static sf::Color STAR_COLORS[NUM_COLORS] = {
+    sf::Color(244, 202, 160, TRANSPARENCY),
+    sf::Color(141, 160, 229, TRANSPARENCY),
+    sf::Color(251, 241, 233, TRANSPARENCY),
+    sf::Color(225, 180, 109, TRANSPARENCY),
+    sf::Color(218, 217, 223, TRANSPARENCY)
+};
 
 Universe::Star::Star(sf::Vector2u winDimesion) : SpaceObject() {
+
   shape_.setRadius(this->radiusGenerator());
   shape_.setPosition(this->positionGenerator(winDimesion));
-  shape_.setFillColor(sf::Color(235, 252, 253, 150));
+  shape_.setFillColor(STAR_COLORS[std::rand()%NUM_COLORS]);
 }
 
 Universe::Star::Star(sf::Vector2f location, double mass) :
     SpaceObject(location, sf::Vector2u(0, 0), mass) {
   shape_.setRadius(this->radiusGenerator());
   shape_.setPosition(location);
-  shape_.setFillColor(sf::Color(235, 252, 253, 150));
+  shape_.setFillColor(STAR_COLORS[std::rand()%NUM_COLORS]);
 }
 
 Universe::Star::~Star() {

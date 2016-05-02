@@ -141,9 +141,9 @@ class Universe {
    */
   void updateUniverse();
 
+  const unsigned int numStars = 100;  ///< Number of stars
   unsigned int winWidth_;
   unsigned int winHeight_;
-  const unsigned int numStars = 100;  ///< Number of stars
   sf::RenderWindow window_;
 //  std::vector<Body*> bodyList_;  ///< List of Bodies
   std::vector<Star> starList_;  ///< List of Stars
