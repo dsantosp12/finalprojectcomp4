@@ -1,6 +1,8 @@
+
 #include "SpaceObject.hpp"
 
-Universe::SpaceObject::SpaceObject() : sf::Drawable() {
+Universe::SpaceObject::SpaceObject() 
+	: sf::Drawable() {
 
 }
 
@@ -25,8 +27,8 @@ double Universe::SpaceObject::getMass() const {
 }
 
 void Universe::SpaceObject::setMass(double mass) {
-  if (mass <= 0) throw std::invalid_argument("Mass must greater than 0");
-  mass_ = mass;
+  if (mass <= 0) throw std::runtime_error("Mass must greater than 0");
+  	mass_ = mass;
 }
 
 const sf::Vector2u& Universe::SpaceObject::getVelocity() const {
