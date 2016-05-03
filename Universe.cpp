@@ -45,70 +45,72 @@ void Universe::Universe::run() {
     window_.clear();
 
     // Update and draw the dialog
-    // checkClickOnSprite();
-    // updateDialog(selectedPlanet_);
-    // window_.draw(dialogBox_);
-    // window_.draw(dialogText_);
-    // window_.draw(textTime_);
+    checkClickOnSprite();
+    updateDialog(selectedPlanet_);
+    window_.draw(dialogBox_);
+    window_.draw(dialogText_);
+    window_.draw(textTime_);
 
     // Draw the stars. Check draw stars for reference
     drawStars();
-
-    // Get the current body
-    std::vector<Body*>::iterator first_it;
-    for (first_it = bodyList_.begin(); first_it != bodyList_.end(); ++first_it) {
-      // get the default properties
-      double m1 = (*first_it)->getMass();
-
-      // Inital at rest, force = 0
-      double x_force = 0, y_force = 0;
-      double x_accel, y_accel;
-
-      // contact this planet to other planets
-      std::vector<Body*>::iterator second_it;
-      for (second_it = bodyList_.begin(); second_it != bodyList_.end(); ++second_it) {
-        if (*first_it != *second_it) {
-          // Get current position of the two planets
-          sf::Vector2f first_pos = (*first_it)->getInitScale();
-          sf::Vector2f second_pos = (*second_it)->getInitScale();
-
-          // Get mass of the second planet
-          double m2 = (*second_it)->getMass();
-
-          // get different between those position
-          double x_dif = second_pos.x - first_pos.x;
-          double y_dif = second_pos.y - first_pos.y;
-          // r =  squrt(x^2 + y^2)
-          double distance = sqrt((x_dif * x_dif) + (y_dif * y_dif));
-
-          // now get the netForce
-          double netforce = (*first_it)->calNetforce(distance, m1, m2);
-
-          // Update the acceleration to the current body
-          x_force += netforce * (x_dif / distance);
-          y_force += netforce * (y_dif / distance);
-
-          // update the acceleration
-          x_accel = x_force / m1;
-          y_accel = y_force / m1;
-        }
-      }
-
-      // After comparing and calculating with other planets
-      // Update value to the current body
-      (*first_it)->setAcceleration(x_accel, y_accel);
-      // update Velocity
-      (*first_it)->set_xVel(step_time);
-      (*first_it)->set_yVel(step_time);
-      // now update position
-      (*first_it)->step(step_time);
-
-      transformBodies(*(*first_it));
-      window_.draw(*(*first_it));
-    }
-
+    updateUniverse();
     // Draw everything in on the window
     window_.display();
+  }
+}
+
+void Universe::Universe::updateUniverse() {
+  // Get the current body
+  std::vector<Body*>::iterator first_it;
+  for (first_it = bodyList_.begin(); first_it != bodyList_.end(); ++first_it) {
+    // get the default properties
+    double m1 = (*first_it)->getMass();
+
+    // Inital at rest, force = 0
+    double x_force = 0, y_force = 0;
+    double x_accel, y_accel;
+
+    // contact this planet to other planets
+    std::vector<Body*>::iterator second_it;
+    for (second_it = bodyList_.begin(); second_it != bodyList_.end(); ++second_it) {
+      if (*first_it != *second_it) {
+        // Get current position of the two planets
+        sf::Vector2f first_pos = (*first_it)->getInitScale();
+        sf::Vector2f second_pos = (*second_it)->getInitScale();
+
+        // Get mass of the second planet
+        double m2 = (*second_it)->getMass();
+
+        // get different between those position
+        double x_dif = second_pos.x - first_pos.x;
+        double y_dif = second_pos.y - first_pos.y;
+        // r =  squrt(x^2 + y^2)
+        double distance = sqrt((x_dif * x_dif) + (y_dif * y_dif));
+
+        // now get the netForce
+        double netforce = (*first_it)->calNetforce(distance, m1, m2);
+
+        // Update the acceleration to the current body
+        x_force += netforce * (x_dif / distance);
+        y_force += netforce * (y_dif / distance);
+
+        // update the acceleration
+        x_accel = x_force / m1;
+        y_accel = y_force / m1;
+      }
+    }
+
+    // After comparing and calculating with other planets
+    // Update value to the current body
+    (*first_it)->setAcceleration(x_accel, y_accel);
+    // update Velocity
+    (*first_it)->set_xVel(step_time);
+    (*first_it)->set_yVel(step_time);
+    // now update position
+    (*first_it)->step(step_time);
+
+    transformBodies(*(*first_it));
+    window_.draw(*(*first_it));
   }
 }
 
@@ -205,7 +207,7 @@ void Universe::Universe::checkClickOnSprite() {
 }
 
 void Universe::Universe::setUpTextAndDialog() {
-  sf::Vector2f dialog_size(400, 150);
+  sf::Vector2f dialog_size(600, 150);
   sf::Vector2f dialog_pos(window_.getSize().x-dialog_size.x,
                          window_.getSize().y-dialog_size.y);
   dialogBox_.setSize(dialog_size);
@@ -225,12 +227,13 @@ void Universe::Universe::setUpTextAndDialog() {
 void Universe::Universe::updateDialog(Body *planet) {
   if (planet != NULL) {
     sf::Vector2f position = planet->getLocation();
-    sf::Vector2u velocity = planet->getVelocity();
     sf::Vector2f acce = planet->getAcceleration();
     std::stringstream ss;
     ss << std::setw(18)  << "Planet: " << planet->getPlanetName() << std::endl
-        << std::setw(18) << "Position: (" << position.x << ", " << position.y << ")" << std::endl
-        << std::setw(17) << "Velocity: (" << velocity.x << ", " << velocity.y << ")" << std::endl
+        << std::setw(18) << "Position: (" << planet->getPosition().x
+        << ", " << planet->getPosition().y << ")" << std::endl
+        << std::setw(17) << "Velocity: (" << planet->get_xVel()
+        << ", " << planet->get_yVel() << ")" << std::endl
         << "Acceleration: (" << acce.x << ", " << acce.y << ")" << std::endl;
     dialogText_.setString(ss.str());
   }

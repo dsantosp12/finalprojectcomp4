@@ -204,6 +204,8 @@ class Body : public SpaceObject, virtual private NonCopyClass {
     */
 	sf::Vector2f getAcceleration() {return acceleration_;}
 
+  	sf::Vector2f getPosition() { return sf::Vector2f(x_pos, y_pos);}
+
   	std::string getPlanetName();
 
 	/*  @author: Hung Q Nguyen
