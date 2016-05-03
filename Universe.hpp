@@ -86,18 +86,11 @@ class Universe {
   void printState();
 
   /*  @author: Daniel Santos & Hung Q Nguyen
-   *  @brief: Getting the ref of the elapsed time string.
-   *  @params: none
-   *  @return: sf::Text& -- Ref to the current text (String of elapsed time)
-   */
-  sf::Text& getTextTime() const;
-
-  /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: setting the text from value of elapsed time.
    *  @params: int -- value of elapse time
    *  @return: none
    */
-  void setTextTime(int elapsed_time);
+  void setTextTime();
 
   /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: get the value of elapsed time
@@ -161,7 +154,7 @@ class Universe {
    *  @params: none
    *  @return: none
    */
-  void updateTime();
+  void updateTime(int time);
 
   /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: Update the coordinates of the planets
@@ -203,6 +196,8 @@ class Universe {
    * */
   void updateDialog(Body* planet);
 
+  void shipMove(sf::Event::KeyEvent key);
+
   int winSize_;  ///< Size of the window
   int uni_total_times;  ///< Total times for the universe
   double step_time;  ///< Times per step
@@ -210,7 +205,7 @@ class Universe {
   sf::RenderWindow window_;  ///< Main window
   std::vector<Body*> bodyList_;  ///< List of Bodies
   std::vector<Star> starList_;  ///< List of Stars
-  SpaceShip ship_;  ///< SpaceShip
+  SpaceShip* ship_;  ///< SpaceShip
   int elapsedTime_;   ///< Elapsed Time
   sf::Font fontTime_;  ///< Font of Text displaying in the screen
   sf::Text textTime_;  ///< Text of the Planet.

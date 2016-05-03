@@ -12,16 +12,14 @@
 
 #include "SpaceObject.hpp"
 
-static const enum MOVE {
-  UP, DOWN, LEFT, RIGTH
-};
+#define MOVE_FACT 15
 
 class SpaceShip : public Universe::SpaceObject {
  public:
-  SpaceShip();
-  void move(MOVE direction);
+  SpaceShip(sf::Vector2u winSize);
+  void move(sf::Keyboard::Key direction);
  private:
-  void SpaceShip::draw(sf::RenderTarget &target, sf::RenderStates states) const;
+  virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
   sf::Sprite sprite_;
   sf::Texture texture_;
 };

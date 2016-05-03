@@ -8,13 +8,13 @@ Universe::Universe::Universe(double rad, int size, std::vector<Body*>& planetLis
   // Seed for the random generators
   std::srand(time(0));
 
-
   // Create the window
   window_.create(sf::VideoMode(winSize_, winSize_), "Solar");
   window_.setFramerateLimit(30);
-  // Generate the stars and bodies
-
+  ship_ = new SpaceShip(window_.getSize());
   setUpTextAndDialog();
+
+  // Generate the stars
   fetchStar();
   bodyList_ = planetList;
 }
@@ -37,26 +37,25 @@ void Universe::Universe::run() {
         case sf::Event::Closed:
           window_.close();
           break;
+        case sf::Event::KeyPressed:
+          shipMove(event.key);
+          break;
         default:
           break;
       }
     }
-    // Clear the windows
     window_.clear();
-
     // Update and draw the dialog
     checkClickOnSprite();
     updateDialog(selectedPlanet_);
+    updateUniverse();
     window_.draw(dialogBox_);
     window_.draw(dialogText_);
     window_.draw(textTime_);
-
-    // Draw the stars. Check draw stars for reference
     drawStars();
-    updateUniverse();
-    window_.draw(ship_);
-    // Draw everything in on the window
+    window_.draw(*ship_);
     window_.display();
+    updateTime(current_time);
   }
 }
 
@@ -213,7 +212,7 @@ void Universe::Universe::setUpTextAndDialog() {
                          window_.getSize().y-dialog_size.y);
   dialogBox_.setSize(dialog_size);
   dialogBox_.setPosition(dialog_pos);
-  dialogBox_.setFillColor(sf::Color(255, 255, 255, 200));
+  dialogBox_.setFillColor(sf::Color(255, 255, 255, 150));
 
   fontTime_.loadFromFile("nbody/fonts.otf");
   textTime_.setFont(fontTime_);
@@ -227,7 +226,6 @@ void Universe::Universe::setUpTextAndDialog() {
 
 void Universe::Universe::updateDialog(Body *planet) {
   if (planet != NULL) {
-    sf::Vector2f position = planet->getLocation();
     sf::Vector2f acce = planet->getAcceleration();
     std::stringstream ss;
     ss << std::setw(18)  << "Planet: " << planet->getPlanetName() << std::endl
@@ -238,4 +236,23 @@ void Universe::Universe::updateDialog(Body *planet) {
         << "Acceleration: (" << acce.x << ", " << acce.y << ")" << std::endl;
     dialogText_.setString(ss.str());
   }
+}
+
+void Universe::Universe::shipMove(sf::Event::KeyEvent key) {
+  ship_->move(key.code);
+}
+
+void Universe::Universe::updateTime(int time) {
+  elapsedTime_ = time;
+  this->setTextTime();
+}
+
+void Universe::Universe::setTextTime() {
+  std::stringstream ss;
+  ss << getElapsedTime();
+  textTime_.setString(ss.str());
+}
+
+int Universe::Universe::getElapsedTime() const {
+  return elapsedTime_;
 }
