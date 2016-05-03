@@ -215,5 +215,5 @@ class Universe {
   Body* selectedPlanet_;  ///< This will hold a clicked planet
 };
 
-}
+}  // namespace Universe
 #endif  // PS4_SPACEOBJECT_HPP

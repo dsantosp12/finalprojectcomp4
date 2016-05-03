@@ -1,6 +1,6 @@
 /** Copyright 2015 Daniel Santos & Hung Nguyen
  *  @file     Universe.hpp
- *  @author   Daniel Santos & Hung Nguyen
+ *  @author   Daniel Santos
  *  @date     04/20/2016
  *  @version  1.0
  *
@@ -14,6 +14,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <algorithm>
+#include <vector>
 #include "SpaceObject.hpp"
 
 namespace Universe {
@@ -50,7 +51,7 @@ class Star : public SpaceObject {
    *  BOOT_REQUIRE_THROW(SpaceObject(location, negative int, radius))
    *  BOOT_REQUIRE_THROW(SpaceObject(location, mass, negative int))
    * */
-  Star(sf::Vector2f location, double mass = 0.0);
+  explicit Star(sf::Vector2f location, double mass = 0.0);
 
   /**
    *  @brief  Destructor of the Star object.
@@ -77,8 +78,8 @@ class Star : public SpaceObject {
    *  @param  sf::Vector2u  range
    *  @return sf::Vector2f
    * */
-  sf::Vector2f positionGenerator(sf::Vector2u range, std::vector<Star>& starList);
-  
+  sf::Vector2f positionGenerator(sf::Vector2u range,
+                                 std::vector<Star>& starList);
   /**
    *  @brief  This method will be used for the std::generate()
    *  algorithm to generate a random position. This uses the
@@ -91,6 +92,6 @@ class Star : public SpaceObject {
   float           radius_;  // < This holds the radius of the circle
 };
 
-}
+}  //  namespace Universe
 
-#endif //PS4_STAR_HPP
+#endif  // PS4_STAR_HPP

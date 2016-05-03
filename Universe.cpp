@@ -1,9 +1,21 @@
+/** Copyright 2015 Daniel Santos & Hung Nguyen
+*  @file     Universe.cpp
+*  @author   Daniel Santos & Hung Nguyen
+*  @date     05/3/2016
+*  @version  1.0
+*
+*  @brief    This file contains the implementation
+ * of the Universe object.
+* */
+
+#include <vector>
 #include "Universe.hpp"
 
 const unsigned int numStars = 200;  ///< Number of stars
 const unsigned int numBodies = 6;
 
-Universe::Universe::Universe(double rad, int size, std::vector<Body*>& planetList)
+Universe::Universe::Universe(double rad, int size,
+                             std::vector<Body*>& planetList)
   :uni_rad(rad), winSize_(size) {
   // Seed for the random generators
   std::srand(time(0));
@@ -15,7 +27,7 @@ Universe::Universe::Universe(double rad, int size, std::vector<Body*>& planetLis
   setUpTextAndDialog();
   elapsedTime_ = 0;
 
-  music_.openFromFile("nbody/background_music.wav");
+  music_.openFromFile("res/background_music.wav");
   music_.play();
 
   // Generate the stars
@@ -76,7 +88,8 @@ void Universe::Universe::updateUniverse() {
 
     // contact this planet to other planets
     std::vector<Body*>::iterator second_it;
-    for (second_it = bodyList_.begin(); second_it != bodyList_.end(); ++second_it) {
+    for (second_it = bodyList_.begin(); second_it != bodyList_.end();
+         ++second_it) {
       if (*first_it != *second_it) {
         // Get current position of the two planets
         sf::Vector2f first_pos = (*first_it)->getInitScale();
@@ -127,7 +140,7 @@ void Universe::Universe::updateUniverse() {
 void Universe::Universe::fetchStar() {
   // Instanciate Stars and push it to starList
   for (unsigned int i = 0; i < numStars; i++)
-		starList_.push_back(Star(window_.getSize(), starList_));
+    starList_.push_back(Star(window_.getSize(), starList_));
 }
 
 /* **********************************
@@ -203,7 +216,8 @@ void Universe::Universe::checkClickOnSprite() {
 
     for (itr = bodyList_.begin(); itr != bodyList_.end(); ++itr) {
       sprite = (*itr)->getSprite();
-      if (sprite.getGlobalBounds().contains(sf::Vector2f(click_coordinates.x, click_coordinates.y))) {
+      if (sprite.getGlobalBounds()
+          .contains(sf::Vector2f(click_coordinates.x, click_coordinates.y))) {
         selectedPlanet_ = *itr;
       }
     }
@@ -218,7 +232,7 @@ void Universe::Universe::setUpTextAndDialog() {
   dialogBox_.setPosition(dialog_pos);
   dialogBox_.setFillColor(sf::Color(255, 255, 255, 150));
 
-  fontTime_.loadFromFile("nbody/fonts.otf");
+  fontTime_.loadFromFile("res/fonts.otf");
   textTime_.setFont(fontTime_);
   textTime_.setString("0");
   dialogText_.setFont(fontTime_);

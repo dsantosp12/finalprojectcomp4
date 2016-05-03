@@ -1,10 +1,20 @@
+/** Copyright 2015 Daniel Santos & Hung Nguyen
+ *  @file     Universe.hpp
+ *  @author   Daniel Santos
+ *  @date     04/20/2016
+ *  @version  1.0
+ *
+ *  @brief    This file contains the namespace
+ *  Universe which contains the classes implementation
+ *  for Star.
+ * */
 #include "Star.hpp"
+#include <vector>
 
 #define NUM_COLORS 5
 #define MAX_RADIUS 3
 #define TRANSPARENCY 150
-
-const static sf::Color STAR_COLORS[NUM_COLORS] = {
+static const sf::Color STAR_COLORS[NUM_COLORS] = {
     sf::Color(244, 202, 160, TRANSPARENCY),
     sf::Color(141, 160, 229, TRANSPARENCY),
     sf::Color(251, 241, 233, TRANSPARENCY),
@@ -12,7 +22,8 @@ const static sf::Color STAR_COLORS[NUM_COLORS] = {
     sf::Color(218, 217, 223, TRANSPARENCY)
 };
 
-Universe::Star::Star(sf::Vector2u winDimesion, std::vector<Star>& starList) : SpaceObject() {
+Universe::Star::Star(sf::Vector2u winDimesion,
+                     std::vector<Star>& starList) : SpaceObject() {
   shape_.setRadius(this->radiusGenerator());
   shape_.setPosition(this->positionGenerator(winDimesion, starList));
   shape_.setFillColor(STAR_COLORS[std::rand()%NUM_COLORS]);
@@ -26,7 +37,6 @@ Universe::Star::Star(sf::Vector2f location, double mass) :
 }
 
 Universe::Star::~Star() {
-
 }
 
 void Universe::Star::draw(sf::RenderTarget &target,
@@ -34,7 +44,8 @@ void Universe::Star::draw(sf::RenderTarget &target,
   target.draw(shape_, states);
 }
 
-sf::Vector2f Universe::Star::positionGenerator(sf::Vector2u range, std::vector<Star>& starList) {
+sf::Vector2f Universe::Star::positionGenerator(sf::Vector2u range,
+                                               std::vector<Star>& starList) {
   std::vector<Star>::iterator itr = starList.begin();
   sf::Vector2f new_vector(std::rand()%range.x, std::rand()%range.y);
   float y, x;

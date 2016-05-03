@@ -16,7 +16,7 @@
 
 class SpaceShip : public Universe::SpaceObject {
  public:
-  SpaceShip(sf::Vector2u winSize);
+  explicit SpaceShip(sf::Vector2u winSize);
   void move(sf::Keyboard::Key direction);
  private:
   virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
@@ -24,5 +24,4 @@ class SpaceShip : public Universe::SpaceObject {
   sf::Texture texture_;
 };
 
-
-#endif //PS4_SPACESHIP_HPP
+#endif  // PS4_SPACESHIP_HPP

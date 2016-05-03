@@ -1,8 +1,17 @@
+/** Copyright 2015 Daniel Santos & Hung Nguyen
+ *  @file     Universe.hpp
+ *  @author   Daniel Santos
+ *  @date     04/20/2016
+ *  @version  1.0
+ *
+ *  @brief    This file contains a namespace
+ *  Universe which contains the classes implementation
+ *  for SpaceObject.
+ * */
+
 #include "SpaceObject.hpp"
 
-Universe::SpaceObject::SpaceObject() 
-	: sf::Drawable() {
-
+Universe::SpaceObject::SpaceObject() : sf::Drawable() {
 }
 
 Universe::SpaceObject::SpaceObject(sf::Vector2f location,
@@ -27,7 +36,7 @@ double Universe::SpaceObject::getMass() const {
 
 void Universe::SpaceObject::setMass(double mass) {
   if (mass <= 0) throw std::runtime_error("Mass must greater than 0");
-  	mass_ = mass;
+  mass_ = mass;
 }
 
 const sf::Vector2u& Universe::SpaceObject::getVelocity() const {

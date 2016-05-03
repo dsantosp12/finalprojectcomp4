@@ -308,7 +308,7 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 
 		std::cout << body.x_vel << " " << body.y_vel << std::endl;
 		body.planet_name_ = image_name;
-		body.file_name = "nbody/" + image_name;
+		body.file_name = "res/" + image_name;
 
 		body.pTexture_.loadFromFile(body.file_name);
 		body.pSprite_.setTexture(body.pTexture_);

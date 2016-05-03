@@ -1,7 +1,16 @@
+/** Copyright 2015 Daniel Santos & Hung Nguyen
+*  @file     SpaceShip.hpp
+*  @author   Daniel Santos
+*  @date     05/3/2016
+*  @version  1.0
+*
+*  @brief    This file contains the implementation
+ * of the SpaceShip object.
+* */
 #include "SpaceShip.hpp"
 
 SpaceShip::SpaceShip(sf::Vector2u winSize) : Universe::SpaceObject() {
-  texture_.loadFromFile("nbody/spaceship.png");
+  texture_.loadFromFile("res/spaceship.png");
   sprite_.setTexture(texture_);
   sprite_.setPosition(winSize.x/3, winSize.y-100);
   sprite_.setScale(0.3, 0.3);
