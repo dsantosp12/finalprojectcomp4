@@ -172,17 +172,25 @@ class Universe {
    *  @author Daniel Santos
    *  @brief  This method check is on of the planets
    *  have been clicked.
-   *  @param
-   *  @return boolean
+   *  @param  none
+   *  @return none
    * */
   void checkClickOnSprite();
   /**
    *  @author Daniel Santos
    *  @brief  This is a helper method to setup the
    *  information dialog.
+   *  @param  none
+   *  @return none
    * */
   void setUpTextAndDialog();
-
+  /**
+   *  @author Daniel Santos
+   *  @brief  This function will update a the dialog
+   *  with the properties of a given planet.
+   *  @param  none
+   *  @return none
+   * */
   void updateDialog(Body* planet);
 
   int winSize_;  ///< Size of the window
