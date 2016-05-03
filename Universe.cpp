@@ -14,6 +14,10 @@ Universe::Universe::Universe(double rad, int size, std::vector<Body*>& planetLis
   ship_ = new SpaceShip(window_.getSize());
   setUpTextAndDialog();
   elapsedTime_ = 0;
+
+  music_.openFromFile("nbody/background_music.wav");
+  music_.play();
+
   // Generate the stars
   fetchStar();
   bodyList_ = planetList;
