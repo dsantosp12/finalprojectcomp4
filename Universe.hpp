@@ -41,7 +41,7 @@ class Universe {
    *  There are no unique properties for the default constructor
    *  to test.
    */
-  Universe(int size, std::vector<Body*>& planetList);
+  Universe(double rad, int size, std::vector<Body*>& planetList);
 
   /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: The destructor of the universe object
@@ -103,6 +103,13 @@ class Universe {
    */
   int getElapsedTime() const;
 
+  /*  @author: Hung Q Nguyen
+   *  @brief: Set the total time for the universe to run
+   *  @params: int time
+   *  @return: none
+   */
+  void setTotalTime(int time_) {uni_total_times = time_;}
+
  private:
   /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: Generate the vector of Bodies
@@ -152,7 +159,17 @@ class Universe {
    *  @return: none
    */
   void updateUniverse();
+
+  /*  @author: Hung Q Nguyen
+  *  @brief: Scale the properties of the bodies
+  *  @params: none
+  *  @return: none
+  */
+  void transformBodies();
+
   int winSize_;  ///< Size of the window
+  int uni_total_times;  ///< Total times for the universe
+  double uni_rad;  ///< Radius of the Universal
   sf::RenderWindow window_;  ///< Main window
   std::vector<Body*> bodyList_;  ///< List of Bodies
   std::vector<Star> starList_;  ///< List of Stars

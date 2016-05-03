@@ -51,6 +51,6 @@ sf::Vector2f Universe::Star::positionGenerator(sf::Vector2u range, std::vector<S
 }
 
 float Universe::Star::radiusGenerator() {
-  this->radius_ = std::rand()%10;
+  this->radius_ = std::rand()%3;
   return this->radius_;
 }

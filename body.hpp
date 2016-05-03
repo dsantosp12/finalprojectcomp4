@@ -193,6 +193,28 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 	sf::Vector2u getAcceleration() {return acceleration_;}
 
 	/*  @author: Hung Q Nguyen
+    *   @brief: Getting the value of inital scale
+    *   @params: None
+    *   @return: sf::Vector2f -- Value of Scale
+    *		@note: Added on 5/3
+    */
+	sf::Vector2f getInitScale() {return sf::Vector2f(x_pos, y_pos);}
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Setting the value of the scale
+    *   @params: sf::Vector2f -- Value of Scale
+    *   @return: none
+    *		@note: Added on 5/3
+    */
+	void setInitPosition(sf::Vector2f newVect) {
+		x_pos = newVect.x;
+		y_pos = newVect.y;
+
+		// Update Sprite position
+		pSprite_.setPosition(newVect);
+	}
+
+	/*  @author: Hung Q Nguyen
     *   @brief: Calculating the distance to the Sun
     *   @params: none
     *   @return: none
@@ -259,10 +281,10 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 	*/
 	friend std::istream& operator >>(std::istream& in_stream, Universe::Body& body) {
 		in_stream >> body.x_pos
-							>> body.y_pos
-							>> body.x_vel
-							>> body.y_vel
-							>> body.mass_;
+				  >> body.y_pos
+				  >> body.x_vel
+					>> body.y_vel
+					>> body.mass_;
 		std::string image_name;
 		std::cin >> image_name;
 		body.file_name = "nbody/" + image_name;
@@ -282,6 +304,7 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 	// Added more variables for the need -- 4/26/2016 -- Hung Nguyen
 	float x_pos, y_pos, x_vel, y_vel, mass_;
 	std::string file_name;  ///< Taking the name of the planet: e.g: sun.gif
+	double universe_rad;  ///< Radius of the Universe
 	double netForce_;  ///< net force between planet and the Sun
 	double distanceToSun;  ///< Measure distance from planet to the sun
 	double x_center, y_center;  ///< The center of the Window

@@ -1,10 +1,10 @@
 #include "Universe.hpp"
 
-const unsigned int numStars = 100;  ///< Number of stars
+const unsigned int numStars = 200;  ///< Number of stars
 const unsigned int numBodies = 6;
 
-Universe::Universe::Universe(int size, std::vector<Body*>& planetList)
-  :winSize_(size) {
+Universe::Universe::Universe(double rad, int size, std::vector<Body*>& planetList)
+  :uni_rad(rad), winSize_(size) {
   // Seed for the random generators
   std::srand(time(0));
 
@@ -14,7 +14,9 @@ Universe::Universe::Universe(int size, std::vector<Body*>& planetList)
   // Generate the stars and bodies
   fetchStar();
   bodyList_ = planetList;
-//  fetchBody();
+
+  // transform the bodies
+  transformBodies();
 }
 
 Universe::Universe::~Universe() {
@@ -90,5 +92,35 @@ void Universe::Universe::drawBodies() {
   std::vector<Body*>::iterator iter;
   for (iter = bodyList_.begin(); iter != bodyList_.end(); ++iter) {
     window_.draw(*(*iter));
+  }
+}
+
+/* **********************************
+@ Implemented by Hung Q. Nguyen
+@ Note:
+  + 5/2: First time Implemented
+* ***********************************/
+void Universe::Universe::transformBodies() {
+  // Get the actual percentage
+  double per_pixel = (uni_rad * 2) / winSize_;
+
+  // Get the original center coordinate (0,0) at the middle
+  double x_org = winSize_ / 2;
+  double y_org = winSize_ / 2;
+
+  std::vector<Body*>::iterator iter;
+  for (iter = bodyList_.begin(); iter != bodyList_.end(); ++iter) {
+    sf::Vector2f initial = (*iter)->getInitScale();
+
+    // Scale down
+    double x_pos = initial.x / per_pixel;
+    double y_pos = initial.y / per_pixel;
+
+    // Appli old coordinate
+    x_pos += x_org;
+    y_pos += y_org;
+
+    // Now set back the scale to the body
+    (*iter)->setInitPosition(sf::Vector2f(x_pos, y_pos));
   }
 }

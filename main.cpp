@@ -13,8 +13,10 @@ int main(int argc, char* argv[]) {
 	 	return 0;
 	 }
 
+	// get the total planets from file
 	int number_of_planets;
 	std::cin >> number_of_planets;
+	// get the universe radius
 	double universe_radius;
 	std::cin >> universe_radius;
 	std::vector<Universe::Body*> planetList;
@@ -27,10 +29,13 @@ int main(int argc, char* argv[]) {
 	}
 
 	// Getting the value from command line.
-	 double total_times = (double) std::atoi(argv[1]);
-	 double time_per_step = (double) std::atoi(argv[2]);
+	double total_times = (double) std::atoi(argv[1]);
+	double time_per_step = (double) std::atoi(argv[2]);
 
-	Universe::Universe universe(WIN_SIZE, planetList);
+	// create the whole universe
+	Universe::Universe universe(universe_radius, WIN_SIZE, planetList);
+	// Set total time for the universe to run
+	universe.setTotalTime(total_times);
 	universe.run();
 
 	return 0;
