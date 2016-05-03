@@ -44,16 +44,13 @@ void Universe::Universe::run() {
     // Clear the windows
     window_.clear();
 
-<<<<<<< HEAD
-=======
     // Update and draw the dialog
-    checkClickOnSprite();
-    updateDialog(selectedPlanet_);
-    window_.draw(dialogBox_);
-    window_.draw(dialogText_);
-    window_.draw(textTime_);
+    // checkClickOnSprite();
+    // updateDialog(selectedPlanet_);
+    // window_.draw(dialogBox_);
+    // window_.draw(dialogText_);
+    // window_.draw(textTime_);
 
->>>>>>> 305b72f2799068d5c6d8d28d65a4f1bedd05e581
     // Draw the stars. Check draw stars for reference
     drawStars();
 
@@ -229,7 +226,7 @@ void Universe::Universe::updateDialog(Body *planet) {
   if (planet != NULL) {
     sf::Vector2f position = planet->getLocation();
     sf::Vector2u velocity = planet->getVelocity();
-    sf::Vector2u acce = planet->getAcceleration();
+    sf::Vector2f acce = planet->getAcceleration();
     std::stringstream ss;
     ss << std::setw(18)  << "Planet: " << planet->getPlanetName() << std::endl
         << std::setw(18) << "Position: (" << position.x << ", " << position.y << ")" << std::endl

@@ -175,10 +175,8 @@ class Universe {
   *  @params: none
   *  @return: none
   */
-<<<<<<< HEAD
   void transformBodies(Body&);
-=======
-  void transformBodies();
+
   /**
    *  @author Daniel Santos
    *  @brief  This method check is on of the planets
@@ -195,7 +193,6 @@ class Universe {
   void setUpTextAndDialog();
 
   void updateDialog(Body* planet);
->>>>>>> 305b72f2799068d5c6d8d28d65a4f1bedd05e581
 
   int winSize_;  ///< Size of the window
   int uni_total_times;  ///< Total times for the universe
