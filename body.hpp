@@ -69,7 +69,7 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 	 *   @param  nothing
 	 *   @return nothing
 	 */
-	void step(double times);
+	void step(int times);
 
 	/** @author: Hung Q Nguyen
 	*   @brief updateSeed funtion will update the seed
@@ -94,25 +94,49 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 	double calNetforce(double radius, double planet1_mass, double planet2_mass);
 
 	/*  @author: Hung Q Nguyen
-	*	@brief: Calculating the acceleration of the planet at the curernt time
-	*	@param: double times: -- the current time calculating
-	*	@return: sf::Vector2u -- Getting the values calculated
-	*/
-	sf::Vector2u calAcceleration(double times, double massgf);
-
-	/*  @author: Hung Q Nguyen
 	*	@brief: Calculating the vector of velocity at the current time
 	*	After Calculating the velocity, it will set the velocity to
 	* 	the current spaceobject by calling this->setVelocity()
 	*	@param: double times: -- the current time calculating
-	*					double accel -- the current acceleration
 	*	@return: void -- Getting the values calculated through setter
 	*/
-	void updateVelocity(double times, double);
+	void updateVelocity(int times);
 
 	/**************************************
 	LIST OF GETTERS AND SETTERS
 	***************************************/
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Setting value of x velocity
+    *   @params: double -- value of time to cal
+    *   @return: void
+    **/
+	void set_xVel(double times) {
+		x_vel = x_vel + (times * x_accel_);
+	}
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Setting value of y velocity
+    *   @params: double -- value of time to cal
+    *   @return: void
+    **/
+	void set_yVel(double times) {
+		y_vel = y_vel - (times * y_accel_);
+	}
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Getting value of x velocity
+    *   @params: none
+    *   @return: double -- value of vel
+    **/
+	double get_xVel() {return x_vel;}
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Getting value of y velocity
+    *   @params: none
+    *   @return: double -- value of vel
+    **/
+	double get_yVel() {return y_vel;}
 
     /*  @author: Hung Q Nguyen
     *   @brief: Setting value of times
@@ -127,6 +151,20 @@ class Body : public SpaceObject, virtual private NonCopyClass {
     *   @return: double -- Value of times
     */
 	double getTimes() {return times_;}
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Setting value of mass
+    *   @params: double -- value of mass to assign
+    *   @return: void
+    **/
+	void setMass(float mass) {mass_ = mass;}
+
+    /*  @author: Hung Q Nguyen
+    *   @brief: Getting the value of times
+    *   @params: None
+    *   @return: double -- Value of times
+    */
+	double getMass() {return mass_;}
 
 	/*  @author: Hung Q Nguyen
     *   @brief: Setting the texture from
@@ -190,7 +228,27 @@ class Body : public SpaceObject, virtual private NonCopyClass {
     *   @params: None
     *   @return: sf::Vector2f -- Value of acceleration
     */
-	sf::Vector2u getAcceleration() {return acceleration_;}
+	sf::Vector2f getAcceleration() {return acceleration_;}
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Setting the value of acceleration
+    *   @params: sf::Vector2f -- Value of acceleration
+    *   @return: none
+    */
+	void setAcceleration(double x_accel, double y_accel) {
+		x_accel_ = x_accel;
+		y_accel_ = y_accel;
+		acceleration_ = sf::Vector2f(x_accel, y_accel);
+	}
+
+	/*  @author: Hung Q Nguyen
+    *   @brief: Setting the position for sprite
+    *   @params: sf::Vector2f -- Value of new position
+    *   @return: none
+    */
+	void setSpritePosition(double x, double y) {
+		pSprite_.setPosition(sf::Vector2f(x,y));
+	}
 
 	/*  @author: Hung Q Nguyen
     *   @brief: Getting the value of inital scale
@@ -198,20 +256,10 @@ class Body : public SpaceObject, virtual private NonCopyClass {
     *   @return: sf::Vector2f -- Value of Scale
     *		@note: Added on 5/3
     */
-	sf::Vector2f getInitScale() {return sf::Vector2f(x_pos, y_pos);}
+	sf::Vector2f getInitScale() {
+		sf::Vector2f temp = sf::Vector2f(x_pos, y_pos);
 
-	/*  @author: Hung Q Nguyen
-    *   @brief: Setting the value of the scale
-    *   @params: sf::Vector2f -- Value of Scale
-    *   @return: none
-    *		@note: Added on 5/3
-    */
-	void setInitPosition(sf::Vector2f newVect) {
-		x_pos = newVect.x;
-		y_pos = newVect.y;
-
-		// Update Sprite position
-		pSprite_.setPosition(newVect);
+		return temp;
 	}
 
 	/*  @author: Hung Q Nguyen
@@ -283,13 +331,18 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 		in_stream >> body.x_pos
 				  >> body.y_pos
 				  >> body.x_vel
-					>> body.y_vel
-					>> body.mass_;
+				  >> body.y_vel
+				  >> body.mass_;
 		std::string image_name;
 		std::cin >> image_name;
+
+		std::cout << body.x_vel << " " << body.y_vel << std::endl;
+
 		body.file_name = "nbody/" + image_name;
+
 		body.pTexture_.loadFromFile(body.file_name);
 		body.pSprite_.setTexture(body.pTexture_);
+
 		return in_stream;
 	}
 
@@ -299,10 +352,11 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 
 	sf::Texture pTexture_;  ///< Texture of the planet
 	sf::Sprite pSprite_;  ///< Sprite of the planet
-	sf::Vector2u acceleration_;  ///< the acceleration of
+	sf::Vector2f acceleration_;  ///< the acceleration of
 
 	// Added more variables for the need -- 4/26/2016 -- Hung Nguyen
-	float x_pos, y_pos, x_vel, y_vel, mass_;
+	double x_pos, y_pos, x_vel, y_vel, mass_;
+	double x_accel_, y_accel_;
 	std::string file_name;  ///< Taking the name of the planet: e.g: sun.gif
 	double universe_rad;  ///< Radius of the Universe
 	double netForce_;  ///< net force between planet and the Sun

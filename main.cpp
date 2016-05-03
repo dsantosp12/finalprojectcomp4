@@ -9,7 +9,7 @@
 int main(int argc, char* argv[]) {
 	// Check if the parameters input are not enough
 	 if (argc <= 1) {
-	 	std::cout << "To Execute: ./orbit [Total Times] [Time per Step]" << std::endl;
+	 	std::cout << "To Execute: ./orbit [Total Times] [Time per Step] < input" << std::endl;
 	 	return 0;
 	 }
 
@@ -34,8 +34,11 @@ int main(int argc, char* argv[]) {
 
 	// create the whole universe
 	Universe::Universe universe(universe_radius, WIN_SIZE, planetList);
+
 	// Set total time for the universe to run
 	universe.setTotalTime(total_times);
+	universe.setStepTime(time_per_step);
+
 	universe.run();
 
 	return 0;

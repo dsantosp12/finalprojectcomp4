@@ -110,6 +110,14 @@ class Universe {
    */
   void setTotalTime(int time_) {uni_total_times = time_;}
 
+  /*  @author: Hung Q Nguyen
+   *  @brief: Set the time per step for the universe to run
+   *  @params: int time
+   *  @return: none
+   */
+  void setStepTime(double time_) {step_time = time_;}
+
+
  private:
   /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: Generate the vector of Bodies
@@ -165,10 +173,11 @@ class Universe {
   *  @params: none
   *  @return: none
   */
-  void transformBodies();
+  void transformBodies(Body&);
 
   int winSize_;  ///< Size of the window
   int uni_total_times;  ///< Total times for the universe
+  double step_time;  ///< Times per step
   double uni_rad;  ///< Radius of the Universal
   sf::RenderWindow window_;  ///< Main window
   std::vector<Body*> bodyList_;  ///< List of Bodies
