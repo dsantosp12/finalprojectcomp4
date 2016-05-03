@@ -13,7 +13,7 @@ Universe::Universe::Universe(double rad, int size, std::vector<Body*>& planetLis
   window_.setFramerateLimit(30);
   ship_ = new SpaceShip(window_.getSize());
   setUpTextAndDialog();
-
+  elapsedTime_ = 0;
   // Generate the stars
   fetchStar();
   bodyList_ = planetList;
@@ -29,8 +29,7 @@ Universe::Universe::~Universe() {
 void Universe::Universe::run() {
   // counting time instead of checking
   // if the window is open
-  int current_time;
-  for (current_time = 0; current_time < uni_total_times; current_time += step_time) {
+  while (window_.isOpen() && elapsedTime_ < uni_total_times) {
     sf::Event event;
     while (window_.pollEvent(event)) {
       switch (event.type) {
@@ -55,7 +54,9 @@ void Universe::Universe::run() {
     drawStars();
     window_.draw(*ship_);
     window_.display();
-    updateTime(current_time);
+
+    // Update current
+    updateTime(step_time);
   }
 }
 
@@ -243,7 +244,7 @@ void Universe::Universe::shipMove(sf::Event::KeyEvent key) {
 }
 
 void Universe::Universe::updateTime(int time) {
-  elapsedTime_ = time;
+  elapsedTime_ += time;
   this->setTextTime();
 }
 
