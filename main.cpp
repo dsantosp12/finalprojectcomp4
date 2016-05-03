@@ -20,10 +20,10 @@ int main(int argc, char* argv[]) {
 	std::vector<Universe::Body*> planetList;
 
 	for (int i = 0; i < number_of_planets; i++) {
-		Universe::Body planet(WIN_SIZE);
-		std::cin >> planet;
-		std::cout << planet << std::endl;
-		planetList.push_back(&planet);
+		Universe::Body* planet = new Universe::Body(WIN_SIZE);
+		std::cin >> *planet;
+		std::cout << *planet << std::endl;
+		planetList.push_back(planet);
 	}
 
 	// Getting the value from command line.

@@ -263,13 +263,11 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 							>> body.x_vel
 							>> body.y_vel
 							>> body.mass_;
-		std::string file_n;
-		std::cin >> file_n;
-		std::cout << file_n;
-		body.file_name = "nbody/" + file_n;
-		body.pTexture_.loadFromFile("earth.gif");
+		std::string image_name;
+		std::cin >> image_name;
+		body.file_name = "nbody/" + image_name;
+		body.pTexture_.loadFromFile(body.file_name);
 		body.pSprite_.setTexture(body.pTexture_);
-
 		return in_stream;
 	}
 

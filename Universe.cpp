@@ -39,8 +39,6 @@ void Universe::Universe::run() {
     // Clear the windows
     window_.clear();
     // Draw the stars. Check draw stars for reference
-    // window_.draw(*bodyList_.at(0));
-
     drawStars();
     drawBodies();
 

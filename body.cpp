@@ -5,7 +5,6 @@ const double E = 1e+9;
 
 Universe::Body::Body (int window_size)
 	: wSize_(window_size) {
-	// Get texture and Sprite
 }
 Universe::Body::Body (sf::Vector2f initial_pos, sf::Vector2u velocity,
 	  sf::Texture texture, double mass)
