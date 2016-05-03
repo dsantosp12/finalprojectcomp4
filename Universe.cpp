@@ -54,6 +54,7 @@ void Universe::Universe::run() {
     // Draw the stars. Check draw stars for reference
     drawStars();
     updateUniverse();
+    window_.draw(ship_);
     // Draw everything in on the window
     window_.display();
   }

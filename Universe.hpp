@@ -19,6 +19,7 @@
 #include <sstream>
 #include <iomanip>
 #include "SpaceObject.hpp"
+#include "SpaceShip.hpp"
 #include "body.hpp"
 #include "Star.hpp"
 
@@ -209,6 +210,7 @@ class Universe {
   sf::RenderWindow window_;  ///< Main window
   std::vector<Body*> bodyList_;  ///< List of Bodies
   std::vector<Star> starList_;  ///< List of Stars
+  SpaceShip ship_;  ///< SpaceShip
   int elapsedTime_;   ///< Elapsed Time
   sf::Font fontTime_;  ///< Font of Text displaying in the screen
   sf::Text textTime_;  ///< Text of the Planet.
