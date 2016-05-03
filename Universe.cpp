@@ -27,8 +27,6 @@ Universe::Universe::~Universe() {
 @ Note:
 * ***********************************/
 void Universe::Universe::run() {
-  // counting time instead of checking
-  // if the window is open
   while (window_.isOpen() && elapsedTime_ < uni_total_times) {
     sf::Event event;
     while (window_.pollEvent(event)) {
@@ -44,7 +42,7 @@ void Universe::Universe::run() {
       }
     }
     window_.clear();
-    // Update and draw the dialog
+    // Update and draw
     checkClickOnSprite();
     updateDialog(selectedPlanet_);
     updateUniverse();
@@ -58,6 +56,7 @@ void Universe::Universe::run() {
     // Update current
     updateTime(step_time);
   }
+  printState();
 }
 
 void Universe::Universe::updateUniverse() {
@@ -256,4 +255,13 @@ void Universe::Universe::setTextTime() {
 
 int Universe::Universe::getElapsedTime() const {
   return elapsedTime_;
+}
+
+void Universe::Universe::printState() {
+  std::vector<Body*>::iterator itr;
+  std::cout << "++++++++++++++ Universe State ++++++++++++++" << std::endl;
+  for (itr = bodyList_.begin(); itr != bodyList_.end(); ++itr) {
+    std::cout << "Planet: " << (*itr)->getPlanetName() << std::endl;
+    std::cout << *(*itr) << std::endl;
+  }
 }
