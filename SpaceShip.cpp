@@ -1,5 +1,5 @@
 /** Copyright 2015 Daniel Santos & Hung Nguyen
-*  @file     SpaceShip.hpp
+*  @file     SpaceShip.cpp
 *  @author   Daniel Santos
 *  @date     05/3/2016
 *  @version  1.0

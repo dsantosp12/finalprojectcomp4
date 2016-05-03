@@ -1,5 +1,5 @@
 /** Copyright 2015 Daniel Santos & Hung Nguyen
- *  @file     Universe.hpp
+ *  @file     Star.hpp
  *  @author   Daniel Santos
  *  @date     04/20/2016
  *  @version  1.0
