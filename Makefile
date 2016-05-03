@@ -7,7 +7,7 @@ FLAGS = -Wall -Werror -pedantic
 LIB = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 LINK = -L /usr/local/lib
 INCLUDE = -I /usr/local/include
-EXECUTABLE = orbit
+EXECUTABLE = NBody
 CC = g++
 
 # ===========================================
@@ -16,7 +16,7 @@ all: $(EXECUTABLE)
 
 # ===========================================
 # Creating Executables
-orbit: main.o universe.o star.o space.o spaceship.o body.o
+NBody: main.o universe.o star.o space.o spaceship.o body.o
 	@echo '' # New line
 	@echo ' ------ 	 target: $@'
 	$(CC) $(FLAGS) main.o universe.o body.o star.o space.o spaceship.o -o $(EXECUTABLE) $(LINK) $(LIB)
