@@ -8,10 +8,13 @@ Universe::Universe::Universe(double rad, int size, std::vector<Body*>& planetLis
   // Seed for the random generators
   std::srand(time(0));
 
+
   // Create the window
   window_.create(sf::VideoMode(winSize_, winSize_), "Solar");
-
+  window_.setFramerateLimit(30);
   // Generate the stars and bodies
+
+  setUpTextAndDialog();
   fetchStar();
   bodyList_ = planetList;
 
@@ -40,6 +43,14 @@ void Universe::Universe::run() {
     }
     // Clear the windows
     window_.clear();
+
+    // Update and draw the dialog
+    checkClickOnSprite();
+    updateDialog(selectedPlanet_);
+    window_.draw(dialogBox_);
+    window_.draw(dialogText_);
+    window_.draw(textTime_);
+
     // Draw the stars. Check draw stars for reference
     drawStars();
     drawBodies();
@@ -122,5 +133,56 @@ void Universe::Universe::transformBodies() {
 
     // Now set back the scale to the body
     (*iter)->setInitPosition(sf::Vector2f(x_pos, y_pos));
+  }
+}
+
+/* **********************************
+@ Implemented by Daniel Santos
+@ Note:
+* ***********************************/
+void Universe::Universe::checkClickOnSprite() {
+  if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+    std::vector<Body*>::iterator itr;
+    sf::Sprite sprite;
+    sf::Vector2i click_coordinates = sf::Mouse::getPosition(window_);
+
+    for (itr = bodyList_.begin(); itr != bodyList_.end(); ++itr) {
+      sprite = (*itr)->getSprite();
+      if (sprite.getGlobalBounds().contains(sf::Vector2f(click_coordinates.x, click_coordinates.y))) {
+        selectedPlanet_ = *itr;
+      }
+    }
+  }
+}
+
+void Universe::Universe::setUpTextAndDialog() {
+  sf::Vector2f dialog_size(400, 150);
+  sf::Vector2f dialog_pos(window_.getSize().x-dialog_size.x,
+                         window_.getSize().y-dialog_size.y);
+  dialogBox_.setSize(dialog_size);
+  dialogBox_.setPosition(dialog_pos);
+  dialogBox_.setFillColor(sf::Color(255, 255, 255, 200));
+
+  fontTime_.loadFromFile("nbody/fonts.otf");
+  textTime_.setFont(fontTime_);
+  textTime_.setString("0");
+  dialogText_.setFont(fontTime_);
+  dialogText_.setString("Click on a body");
+  dialogText_.setColor(sf::Color::Black);
+  // The number 10 is a litte padding for the text in the dialog
+  dialogText_.setPosition(dialog_pos.x+10, dialog_pos.y);
+}
+
+void Universe::Universe::updateDialog(Body *planet) {
+  if (planet != NULL) {
+    sf::Vector2f position = planet->getLocation();
+    sf::Vector2u velocity = planet->getVelocity();
+    sf::Vector2u acce = planet->getAcceleration();
+    std::stringstream ss;
+    ss << std::setw(18)  << "Planet: " << planet->getPlanetName() << std::endl
+        << std::setw(18) << "Position: (" << position.x << ", " << position.y << ")" << std::endl
+        << std::setw(17) << "Velocity: (" << velocity.x << ", " << velocity.y << ")" << std::endl
+        << "Acceleration: (" << acce.x << ", " << acce.y << ")" << std::endl;
+    dialogText_.setString(ss.str());
   }
 }

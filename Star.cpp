@@ -1,7 +1,7 @@
 #include "Star.hpp"
 
 #define NUM_COLORS 5
-#define MAX_RADIUS 5
+#define MAX_RADIUS 3
 #define TRANSPARENCY 150
 
 const static sf::Color STAR_COLORS[NUM_COLORS] = {

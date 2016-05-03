@@ -192,6 +192,8 @@ class Body : public SpaceObject, virtual private NonCopyClass {
     */
 	sf::Vector2u getAcceleration() {return acceleration_;}
 
+  	std::string getPlanetName();
+
 	/*  @author: Hung Q Nguyen
     *   @brief: Getting the value of inital scale
     *   @params: None
@@ -287,6 +289,7 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 					>> body.mass_;
 		std::string image_name;
 		std::cin >> image_name;
+		body.planet_name_ = image_name;
 		body.file_name = "nbody/" + image_name;
 		body.pTexture_.loadFromFile(body.file_name);
 		body.pSprite_.setTexture(body.pTexture_);
@@ -304,6 +307,7 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 	// Added more variables for the need -- 4/26/2016 -- Hung Nguyen
 	float x_pos, y_pos, x_vel, y_vel, mass_;
 	std::string file_name;  ///< Taking the name of the planet: e.g: sun.gif
+  	std::string planet_name_;
 	double universe_rad;  ///< Radius of the Universe
 	double netForce_;  ///< net force between planet and the Sun
 	double distanceToSun;  ///< Measure distance from planet to the sun

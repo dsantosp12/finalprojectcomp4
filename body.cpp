@@ -101,3 +101,21 @@ void Universe::Body::draw(sf::RenderTarget &target,
                           sf::RenderStates states) const {
   target.draw(pSprite_, states);
 }
+
+std::string Universe::Body::getPlanetName() {
+	std::string name = "";
+	std::string::iterator itr = planet_name_.begin();
+
+	name += toupper(*itr);
+	++itr;
+
+	while (itr != planet_name_.end()) {
+		if (*itr != '.') {
+			name += *itr;
+		} else {
+			break;
+		}
+		++itr;
+	}
+	return name;
+}

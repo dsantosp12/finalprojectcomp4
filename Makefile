@@ -2,10 +2,11 @@
 # NEEDED PROPERTIES
 #=================================================
 OBJECTS = body.o star.o space.o universe.o main.o
-CFLAGS = -c -g -Wall
-FLAGS = -Wall -Werror -pedantic -g
+CFLAGS = -c -Wall
+FLAGS = -Wall -Werror -pedantic
 LIB = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
-LINK = -L /usr/local/lib -I /usr/local/include
+LINK = -L /usr/local/lib
+INCLUDE = -I /usr/local/include
 EXECUTABLE = orbit
 CC = g++
 
@@ -25,37 +26,36 @@ orbit: main.o universe.o star.o space.o body.o
 body.o: body.cpp body.hpp SpaceObject.hpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
-	$(CC) $(CFLAGS) $(LINK) body.cpp -o body.o
+	$(CC) $(CFLAGS) $(INCLUDE) body.cpp -o body.o
 
 # ===========================================
 # Creating objects
 star.o: Star.cpp Star.hpp SpaceObject.hpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
-	$(CC) $(CFLAGS) $(LINK) Star.cpp -o star.o
+	$(CC) $(CFLAGS) $(INCLUDE) Star.cpp -o star.o
 
 # ===========================================
 # Creating objects
 universe.o: Universe.cpp Universe.hpp Star.hpp body.hpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
-	$(CC) $(CFLAGS) $(LINK) Universe.cpp -o universe.o
+	$(CC) $(CFLAGS) $(INCLUDE) Universe.cpp -o universe.o
 
 # ===========================================
 # Creating objects
 space.o: SpaceObject.cpp SpaceObject.hpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
-	$(CC) $(CFLAGS) $(LINK) SpaceObject.cpp -o space.o
+	$(CC) $(CFLAGS) $(INCLUDE) SpaceObject.cpp -o space.o
 
 # ===========================================
 # Creating objects
 main.o: main.cpp Universe.hpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
-	$(CC) $(CFLAGS) $(LINK) main.cpp -o main.o
+	$(CC) $(CFLAGS) $(INCLUDE) main.cpp -o main.o
 
 
 clean:
-	rm -rf *.o test $(EXECUTABLE)
-
+	rm -rf *~ *.o test $(EXECUTABLE)
