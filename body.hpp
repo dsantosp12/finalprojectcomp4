@@ -36,20 +36,6 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 	 */
 	Body (int window_size);
 
-	/*  @author: Hung Q Nguyen
-	 *	@brief: A constructor of the Planet itself.
-	 *	A Planet will be inheritanced from the SpaceObject so
-	 *	It will have the drawable feature by itself.
-	 *	The job of this function will provide the unique information
-	 *	of each planet
-	 *
-	 *	@params: sf::Vector2f -- The Initial position of the planet
-	 *			 sf::Vector2u -- Velocity of the planet
-	 *		 	 double  -- the mass of the planet
-	 */
-	Body (sf::Vector2f initial_pos, sf::Vector2u velocity,
-	  sf::Texture texture, double mass);
-
 	/*
 	 *   @brief: Destructor of the Body object
 	 *   @params: none
@@ -70,18 +56,6 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 	 *   @return nothing
 	 */
 	void step(int times);
-
-	/** @author: Hung Q Nguyen
-	*   @brief updateSeed funtion will update the seed
-	*	Since the step() function is called, the new number generated and the
-	* 	vector positions changes, updateSeed() function will automatically
-	*	called in the step() function and create a string based on the elements
-	*	of the vector of vector2f's position
-	*
-	*   @param  nothing
-	*   @return nothing
-	*/
-	void updatePosition();  // update seed everytime the function is called
 
 	/*  @author: Hung Q Nguyen
 	*	@brief: Calculating the netforce between the planet to the sun
@@ -263,14 +237,6 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 
 		return temp;
 	}
-
-	/*  @author: Hung Q Nguyen
-    *   @brief: Calculating the distance to the Sun
-    *   @params: none
-    *   @return: none
-    *	Added -- 4/26/2016
-    */
-	void calDistanceToSun();
 
 	/*  @author: Hung Q Nguyen
     *   @brief: Calculating the distance to the Sun
