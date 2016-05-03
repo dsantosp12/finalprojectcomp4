@@ -17,20 +17,20 @@ Universe::Universe::Universe(double rad, int size, std::vector<Body*>& planetLis
   setUpTextAndDialog();
   fetchStar();
   bodyList_ = planetList;
-
-  // transform the bodies
-  transformBodies();
 }
 
 Universe::Universe::~Universe() {
 }
 
 /* **********************************
-@ Implemented by Daniel Santos
+@ Implemented by Daniel Santos & Hung Q Nguyen
 @ Note:
 * ***********************************/
 void Universe::Universe::run() {
-  while (window_.isOpen()) {
+  // counting time instead of checking
+  // if the window is open
+  int current_time;
+  for (current_time = 0; current_time < uni_total_times; current_time += step_time) {
     sf::Event event;
     while (window_.pollEvent(event)) {
       switch (event.type) {
@@ -45,15 +45,67 @@ void Universe::Universe::run() {
     window_.clear();
 
     // Update and draw the dialog
-    checkClickOnSprite();
-    updateDialog(selectedPlanet_);
-    window_.draw(dialogBox_);
-    window_.draw(dialogText_);
-    window_.draw(textTime_);
+    // checkClickOnSprite();
+    // updateDialog(selectedPlanet_);
+    // window_.draw(dialogBox_);
+    // window_.draw(dialogText_);
+    // window_.draw(textTime_);
 
     // Draw the stars. Check draw stars for reference
     drawStars();
-    drawBodies();
+
+    // Get the current body
+    std::vector<Body*>::iterator first_it;
+    for (first_it = bodyList_.begin(); first_it != bodyList_.end(); ++first_it) {
+      // get the default properties
+      double m1 = (*first_it)->getMass();
+
+      // Inital at rest, force = 0
+      double x_force = 0, y_force = 0;
+      double x_accel, y_accel;
+
+      // contact this planet to other planets
+      std::vector<Body*>::iterator second_it;
+      for (second_it = bodyList_.begin(); second_it != bodyList_.end(); ++second_it) {
+        if (*first_it != *second_it) {
+          // Get current position of the two planets
+          sf::Vector2f first_pos = (*first_it)->getInitScale();
+          sf::Vector2f second_pos = (*second_it)->getInitScale();
+
+          // Get mass of the second planet
+          double m2 = (*second_it)->getMass();
+
+          // get different between those position
+          double x_dif = second_pos.x - first_pos.x;
+          double y_dif = second_pos.y - first_pos.y;
+          // r =  squrt(x^2 + y^2)
+          double distance = sqrt((x_dif * x_dif) + (y_dif * y_dif));
+
+          // now get the netForce
+          double netforce = (*first_it)->calNetforce(distance, m1, m2);
+
+          // Update the acceleration to the current body
+          x_force += netforce * (x_dif / distance);
+          y_force += netforce * (y_dif / distance);
+
+          // update the acceleration
+          x_accel = x_force / m1;
+          y_accel = y_force / m1;
+        }
+      }
+
+      // After comparing and calculating with other planets
+      // Update value to the current body
+      (*first_it)->setAcceleration(x_accel, y_accel);
+      // update Velocity
+      (*first_it)->set_xVel(step_time);
+      (*first_it)->set_yVel(step_time);
+      // now update position
+      (*first_it)->step(step_time);
+
+      transformBodies(*(*first_it));
+      window_.draw(*(*first_it));
+    }
 
     // Draw everything in on the window
     window_.display();
@@ -111,7 +163,7 @@ void Universe::Universe::drawBodies() {
 @ Note:
   + 5/2: First time Implemented
 * ***********************************/
-void Universe::Universe::transformBodies() {
+void Universe::Universe::transformBodies(Body& body) {
   // Get the actual percentage
   double per_pixel = (uni_rad * 2) / winSize_;
 
@@ -119,21 +171,18 @@ void Universe::Universe::transformBodies() {
   double x_org = winSize_ / 2;
   double y_org = winSize_ / 2;
 
-  std::vector<Body*>::iterator iter;
-  for (iter = bodyList_.begin(); iter != bodyList_.end(); ++iter) {
-    sf::Vector2f initial = (*iter)->getInitScale();
+  sf::Vector2f initial = body.getInitScale();
 
-    // Scale down
-    double x_pos = initial.x / per_pixel;
-    double y_pos = initial.y / per_pixel;
+  // Scale down
+  double x_pos = initial.x / per_pixel;
+  double y_pos = initial.y / per_pixel;
 
-    // Appli old coordinate
-    x_pos += x_org;
-    y_pos += y_org;
+  // Appli old coordinate
+  x_pos += x_org;
+  y_pos += y_org;
 
-    // Now set back the scale to the body
-    (*iter)->setInitPosition(sf::Vector2f(x_pos, y_pos));
-  }
+  // Now set back the scale to the body
+  body.setSpritePosition(x_pos, y_pos);
 }
 
 /* **********************************
@@ -177,7 +226,7 @@ void Universe::Universe::updateDialog(Body *planet) {
   if (planet != NULL) {
     sf::Vector2f position = planet->getLocation();
     sf::Vector2u velocity = planet->getVelocity();
-    sf::Vector2u acce = planet->getAcceleration();
+    sf::Vector2f acce = planet->getAcceleration();
     std::stringstream ss;
     ss << std::setw(18)  << "Planet: " << planet->getPlanetName() << std::endl
         << std::setw(18) << "Position: (" << position.x << ", " << position.y << ")" << std::endl
