@@ -1,6 +1,8 @@
 #include "Star.hpp"
+
 #define NUM_COLORS 5
-#define TRANSPARENCY 200
+#define MAX_RADIUS 3
+#define TRANSPARENCY 150
 
 const static sf::Color STAR_COLORS[NUM_COLORS] = {
     sf::Color(244, 202, 160, TRANSPARENCY),
@@ -33,24 +35,26 @@ void Universe::Star::draw(sf::RenderTarget &target,
 }
 
 sf::Vector2f Universe::Star::positionGenerator(sf::Vector2u range, std::vector<Star>& starList) {
-//  std::vector<Star>::iterator itr = starList.begin();
+  std::vector<Star>::iterator itr = starList.begin();
   sf::Vector2f new_vector(std::rand()%range.x, std::rand()%range.y);
-//  while (true) {
-//    if ((*itr).getLocation() == new_vector) {
-//      new_vector = sf::Vector2f(std::rand()%range.x, std::rand()%range.y);
-//      if (itr != starList.end())
-//        ++itr;
-//      else
-//        itr = starList.begin();
-//    }
-//    else {
-//      break;
-//    }
-//  }
+  float y, x;
+  bool x_check, y_check;
+  while (itr != starList.end()) {
+    x = itr->getLocation().x, y = itr->getLocation().y,
+    x_check = (new_vector.x > x+MAX_RADIUS || new_vector.x < x-MAX_RADIUS),
+    y_check = (new_vector.y > y+MAX_RADIUS || new_vector.y < y-MAX_RADIUS);
+    if (!(x_check && y_check)) {
+      itr = starList.begin();
+      sf::Vector2f other_vector(std::rand()%range.x, std::rand()%range.y);
+      new_vector = other_vector;
+    } else {
+      ++itr;
+    }
+  }
   return new_vector;
 }
 
 float Universe::Star::radiusGenerator() {
-  this->radius_ = std::rand()%3;
+  this->radius_ = std::rand()%MAX_RADIUS;
   return this->radius_;
 }

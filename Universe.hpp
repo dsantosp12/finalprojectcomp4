@@ -16,6 +16,8 @@
 #include <SFML/System.hpp>
 #include <vector>
 #include <string>
+#include <sstream>
+#include <iomanip>
 #include "SpaceObject.hpp"
 #include "body.hpp"
 #include "Star.hpp"
@@ -173,7 +175,27 @@ class Universe {
   *  @params: none
   *  @return: none
   */
+<<<<<<< HEAD
   void transformBodies(Body&);
+=======
+  void transformBodies();
+  /**
+   *  @author Daniel Santos
+   *  @brief  This method check is on of the planets
+   *  have been clicked.
+   *  @param
+   *  @return boolean
+   * */
+  void checkClickOnSprite();
+  /**
+   *  @author Daniel Santos
+   *  @brief  This is a helper method to setup the
+   *  information dialog.
+   * */
+  void setUpTextAndDialog();
+
+  void updateDialog(Body* planet);
+>>>>>>> 305b72f2799068d5c6d8d28d65a4f1bedd05e581
 
   int winSize_;  ///< Size of the window
   int uni_total_times;  ///< Total times for the universe
@@ -185,6 +207,9 @@ class Universe {
   int elapsedTime_;   ///< Elapsed Time
   sf::Font fontTime_;  ///< Font of Text displaying in the screen
   sf::Text textTime_;  ///< Text of the Planet.
+  sf::RectangleShape dialogBox_;  ///< Where the planet info is shown
+  sf::Text dialogText_;  ///< Text for the dialog
+  Body* selectedPlanet_;  ///< This will hold a clicked planet
 };
 
 }

@@ -230,6 +230,8 @@ class Body : public SpaceObject, virtual private NonCopyClass {
     */
 	sf::Vector2f getAcceleration() {return acceleration_;}
 
+  	std::string getPlanetName();
+
 	/*  @author: Hung Q Nguyen
     *   @brief: Setting the value of acceleration
     *   @params: sf::Vector2f -- Value of acceleration
@@ -335,9 +337,13 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 				  >> body.mass_;
 		std::string image_name;
 		std::cin >> image_name;
+<<<<<<< HEAD
 
 		std::cout << body.x_vel << " " << body.y_vel << std::endl;
 
+=======
+		body.planet_name_ = image_name;
+>>>>>>> 305b72f2799068d5c6d8d28d65a4f1bedd05e581
 		body.file_name = "nbody/" + image_name;
 
 		body.pTexture_.loadFromFile(body.file_name);
@@ -358,6 +364,7 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 	double x_pos, y_pos, x_vel, y_vel, mass_;
 	double x_accel_, y_accel_;
 	std::string file_name;  ///< Taking the name of the planet: e.g: sun.gif
+  	std::string planet_name_;
 	double universe_rad;  ///< Radius of the Universe
 	double netForce_;  ///< net force between planet and the Sun
 	double distanceToSun;  ///< Measure distance from planet to the sun
