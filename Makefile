@@ -8,7 +8,7 @@ LIB = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 TEST_LIB = -lboost_unit_test_framework
 LINK = -L /usr/local/lib
 INCLUDE = -I /usr/local/include
-EXECUTABLE = NBody test
+EXECUTABLE = NBody
 CC = g++
 
 # ===========================================
@@ -52,7 +52,7 @@ star.o: Star.cpp Star.hpp SpaceObject.hpp
 
 # ===========================================
 # Creating objects
-universe.o: Universe.cpp Universe.hpp Star.hpp body.hpp
+universe.o: Universe.cpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
 	$(CC) $(CFLAGS) $(INCLUDE) Universe.cpp -o universe.o
