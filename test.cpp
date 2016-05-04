@@ -14,17 +14,14 @@
 #include <boost/test/unit_test.hpp>
 
 #include <stdint.h>
-#include <vector>
 #include <iostream>
 #include <string>
 #include <exception>
 #include <stdexcept>
-#include <math.h>
 
 #include "Universe.hpp"
-#include "Universe.cpp"
+#include "SpaceObject.hpp"
 #include "body.hpp"
-#include "body.cpp"
 
 BOOST_AUTO_TEST_CASE(UniObject) {	
 	// Temp list for making the universe purpose
