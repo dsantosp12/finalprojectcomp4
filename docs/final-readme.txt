@@ -1,7 +1,14 @@
 Authors: Hung Q Nguyen, Daniel Santos
 Date Begins: 4/18/2016
-Date Complete: N/A
+Date Complete: 5/4/2016
 Project name: Solar System
+
+/**********************************************************************
+ *  Did you complete the whole assignment?
+ *  Successfully or not? 
+ *  Indicate which parts you think are working, and describe
+ *    how you know that they're working.
+ **********************************************************************/
 
 General Work: (Work has been discussed and decided together)
 	+ Making a general object and features for every planet
@@ -16,10 +23,6 @@ General Work: (Work has been discussed and decided together)
 		- Venus
 		- Earth
 		- Mars
-		- Jupiter
-		- Saturn
-		- Uranus
-		- Neptune
 
 	+ General variables for each planet:
 		*** For 2D Project
@@ -30,23 +33,13 @@ General Work: (Work has been discussed and decided together)
 		- Sprite for Plannet
 		- Circle around the sun (how the planet moves around the sun)
 
-		*** For 3D Project (Concern as a Extra Credits work)
-		- double: Radius (size)
-		- double: Eclipse width and Eclipse height
-		- double: Orbit Velocity
-		- 2DTexture
-		- Sprite
-		- Eclipse around the sun (how the planet moves around the sun)
-
 	+ General functions:
 		- Draw stars on the screen
-		- Making the stars randomly moving
 		- Draw Solar system on the screen
 
 	+ Functions for each Planet:
 		- Getters and Setters for each variables
 		- Draw functions (extends from SFML class Drawable)
-		- getCircle (object Planet) -- Tells which circle the planet is on.
 		- getVelocity (object Planet) -- Gets Velocity
 		- getSize(int radius)  -- Gets size of each planet
 
@@ -67,11 +60,35 @@ Author: Daniel Santos
 Together:
 	+ We work on the Universe class and Unit Testing together.
 
-* Todo List:
-	+ Counting stars base on window size
-	+ Making Initial Objects of plannets and its features (movements ...)
+Final report:
+	As we splitted the work, but in any cases that we need to have any additional
+functions in any class, we could make it without any decision as long as that function
+does not give any troubles to the program itself.
+	The plan goes our way and the process is successfully finished.
 
-Work Done by Daniel Santos:
-    + 4/20 - Implemented the header file for the SpaceObject & Star classes.
-    + 4/21 - Added a new constructor to the Star class.
+- The solar system works, for all the basic part and the extra credits parts.
+- The assignment is completely finished
+- The complete part of the system includes:
+	+ The basic solar system itself with 5 planets inlcuded the sun
+	+ Stars are drawed in the background
+	+ A spaceship that is moving around and controlled by keyboards
+	+ Also, when any planet is clicked, a dialog will display the planet's
+properties.
 
+/**********************************************************************
+ *  List whatever help (if any) you received from lab TAs,
+ *  classmates, or anyone else.
+ **********************************************************************/
+- Me and Daniel discussed and did the final projects together.
+- We research and study from material online and C++ books.
+
+/**********************************************************************
+ *  Problems during the period                                   
+ **********************************************************************/
+- We did not face any serious problem at all.
+- Sometime we didn't understand the process pretty much, after discussion,
+every goes through.
+
+/**********************************************************************
+ *  List any other comments here.                                     
+ **********************************************************************/
