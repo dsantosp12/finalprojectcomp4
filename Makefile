@@ -5,9 +5,10 @@ OBJECTS = body.o star.o space.o universe.o main.o
 CFLAGS = -c -Wall
 FLAGS = -Wall -Werror -pedantic
 LIB = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
+TEST_LIB = -lboost_unit_test_framework
 LINK = -L /usr/local/lib
 INCLUDE = -I /usr/local/include
-EXECUTABLE = orbit
+EXECUTABLE = orbit test
 CC = g++
 
 # ===========================================
@@ -19,7 +20,21 @@ all: $(EXECUTABLE)
 orbit: main.o universe.o star.o space.o body.o
 	@echo '' # New line
 	@echo ' ------ 	 target: $@'
-	$(CC) $(FLAGS) main.o universe.o body.o star.o space.o -o $(EXECUTABLE) $(LINK) $(LIB)
+	$(CC) $(FLAGS) main.o universe.o body.o star.o space.o -o orbit $(LINK) $(LIB)
+
+# ===========================================
+# Creating Executables
+test: test.o universe.o body.o
+	@echo '' # New line
+	@echo ' ------ 	 target: $@'
+	$(CC) $(FLAGS) test.o universe.o body.o -o test $(LINK) $(TEST_LIB)
+
+# ===========================================
+# Creating objects
+test.o: test.cpp
+	@echo '' # New line
+	@echo ' ------ Building target: $@'
+	$(CC) $(CFLAGS) $(INCLUDE) test.cpp -o test.o
 
 # ===========================================
 # Creating objects

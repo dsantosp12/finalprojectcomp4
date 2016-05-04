@@ -110,15 +110,28 @@ class Universe {
    *  @params: int time
    *  @return: none
    */
-  void setTotalTime(int time_) {uni_total_times = time_;}
+  void setTotalTime(int time_);
 
   /*  @author: Hung Q Nguyen
    *  @brief: Set the time per step for the universe to run
    *  @params: int time
    *  @return: none
    */
-  void setStepTime(double time_) {step_time = time_;}
+  void setStepTime(double time_);
 
+  /*  @author: Hung Q Nguyen
+   *  @brief: Get the time per step for the universe to run
+   *  @params: int time
+   *  @return: none
+   */
+  double getStepTime() {return step_time;}
+
+  /*  @author: Hung Q Nguyen
+  *  @brief: Get the total time for the universe to run
+  *  @params: int time
+  *  @return: none
+  */
+  double getTotalTime() {return uni_total_times;}
 
  private:
   /*  @author: Daniel Santos & Hung Q Nguyen

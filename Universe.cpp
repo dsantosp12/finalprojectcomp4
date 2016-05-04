@@ -5,9 +5,12 @@ const unsigned int numBodies = 6;
 
 Universe::Universe::Universe(double rad, int size, std::vector<Body*>& planetList)
   :uni_rad(rad), winSize_(size) {
+  if (rad <= 0 || size <= 0) {
+    throw std::invalid_argument("Invalid Parameter(s)");
+    return;
+  }
   // Seed for the random generators
   std::srand(time(0));
-
 
   // Create the window
   window_.create(sf::VideoMode(winSize_, winSize_), "Solar");
@@ -144,6 +147,32 @@ void Universe::Universe::fetchBody() {
     Body* body = new Body(winSize_);
     bodyList_.push_back(body);
   }
+}
+
+/* **********************************
+@ Implemented by Hung Q. Nguyen
+@ Note:
+  + 5/3: First time Implemented
+* ***********************************/
+void Universe::Universe::setStepTime(double time_) {
+  if (time_ > uni_total_times) {
+    throw std::runtime_error("Invlaid Time per Step!");
+    return;
+  }
+  step_time = time_;
+}
+
+/* **********************************
+@ Implemented by Hung Q. Nguyen
+@ Note:
+  + 5/3: First time Implemented
+* ***********************************/
+void Universe::Universe::setTotalTime(int time_) {
+  if (time_ < step_time) {
+    throw std::runtime_error("Invalid Total Time! Should be bigger then time per step");
+    return;
+  }
+  uni_total_times = time_;
 }
 
 /* **********************************
