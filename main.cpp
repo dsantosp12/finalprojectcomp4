@@ -4,7 +4,7 @@
 #include "Universe.hpp"
 #include "body.hpp"
 
-#define WIN_SIZE 1200
+#define WIN_SIZE 800
 
 int main(int argc, char* argv[]) {
 	// Check if the parameters input are not enough

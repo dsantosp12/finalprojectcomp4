@@ -25,7 +25,7 @@ Universe::Universe::Universe(double rad, int size,
   std::srand(time(0));
 
   // Create the window
-  window_.create(sf::VideoMode(winSize_, winSize_), "Solar");
+  window_.create(sf::VideoMode(winSize_, winSize_), "SOLAR SYSTEM (Hung Nguyen & Daniel Santos)");
   window_.setFramerateLimit(30);
   ship_ = new SpaceShip(window_.getSize());
   setUpTextAndDialog();
@@ -64,13 +64,13 @@ void Universe::Universe::run() {
     window_.clear();
     // Update and draw
     checkClickOnSprite();
-    //updateDialog(selectedPlanet_);
+    updateDialog(selectedPlanet_);
     updateUniverse();
-    //window_.draw(dialogBox_);
-    //window_.draw(dialogText_);
-    //window_.draw(textTime_);
+    window_.draw(dialogBox_);
+    window_.draw(dialogText_);
+    window_.draw(textTime_);
     drawStars();
-    //window_.draw(*ship_);
+    window_.draw(*ship_);
     window_.display();
 
     // Update current
@@ -257,7 +257,7 @@ void Universe::Universe::checkClickOnSprite() {
 void Universe::Universe::setUpTextAndDialog() {
   sf::Vector2f dialog_size(600, 150);
   sf::Vector2f dialog_pos(window_.getSize().x-dialog_size.x,
-                         window_.getSize().y-dialog_size.y);
+                          window_.getSize().y-dialog_size.y);
   dialogBox_.setSize(dialog_size);
   dialogBox_.setPosition(dialog_pos);
   dialogBox_.setFillColor(sf::Color(255, 255, 255, 150));
@@ -276,13 +276,16 @@ void Universe::Universe::updateDialog(Body *planet) {
   if (planet != NULL) {
     sf::Vector2f acce = planet->getAcceleration();
     std::stringstream ss;
-    ss << std::setw(18)  << "Planet: " << planet->getPlanetName() << std::endl
-        << std::setw(18) << "Position: (" << planet->getPosition().x
-        << ", " << planet->getPosition().y << ")" << std::endl
-        << std::setw(17) << "Velocity: (" << planet->get_xVel()
-        << ", " << planet->get_yVel() << ")" << std::endl
-        << "Acceleration: (" << acce.x << ", " << acce.y << ")" << std::endl;
-    dialogText_.setString(ss.str());
+    std::string name;
+    name = planet->getPlanetName();
+    ss << std::setw(18) << "Planet: " << name << std::endl;
+    ss << std::setw(18) << "Position: (" << planet->getPosition().x;
+    ss << ", " << planet->getPosition().y << ")" << std::endl;
+    ss << std::setw(17) << "Velocity: (" << planet->get_xVel();
+    ss << ", " << planet->get_yVel() << ")" << std::endl;
+    ss << "Acceleration: (" << acce.x << ", " << acce.y << ")" << std::endl;
+    std::string message = ss.str();
+    dialogText_.setString(message);
   }
 }
 

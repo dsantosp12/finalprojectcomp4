@@ -213,7 +213,7 @@ class Body : public SpaceObject, virtual private NonCopyClass {
    */
   sf::Vector2f getPosition() { return sf::Vector2f(x_pos, y_pos);}
 
-  /*  @author: Daniel Santos
+  /*  @author: Daniel Santos & Hung Q Nguyen
    *   @brief: Getting the name of current planet
    *   @params: None
    *   @return: std::string name
@@ -252,20 +252,12 @@ class Body : public SpaceObject, virtual private NonCopyClass {
   }
 
   /*  @author: Hung Q Nguyen
-   *   @brief: Calculating the distance to the Sun
-   *   @params: none
-   *   @return: none
-   *	Added -- 4/26/2016
-   */
-  void setDistanceToSun(double distance) {distanceToSun = distance;}
-
-  /*  @author: Hung Q Nguyen
    *   @brief: Calculating the center
    *   @params: none
-   *   @return: none
-   *	Added -- 4/26/2016
+   *   @return: file name
+   *  Added -- 5/4/2016
    */
-  void calCenterLocation(double window_width, double window_height);
+  std::string getBodyName() {return planet_name_;}
 
   /**
    *  @brief  This is a virtual method inherited from
@@ -340,11 +332,10 @@ class Body : public SpaceObject, virtual private NonCopyClass {
   // Added more variables for the need -- 4/26/2016 -- Hung Nguyen
   double x_pos, y_pos, x_vel, y_vel, mass_;
   double x_accel_, y_accel_;
-  std::string file_name;  ///< Taking the name of the planet: e.g: sun.gif
-  std::string planet_name_;
+  std::string file_name;  ///< Taking the name of the planet file: e.g: sun.gif
+  std::string planet_name_;  ///< Taking the name of the planet
   double universe_rad;  ///< Radius of the Universe
   double netForce_;  ///< net force between planet and the Sun
-  double distanceToSun;  ///< Measure distance from planet to the sun
   double x_center, y_center;  ///< The center of the Window
   ///< This is also the sun position
 };

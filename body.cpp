@@ -29,12 +29,6 @@ void Universe::Body::createBodySprite() {
   pSprite_.setTexture(pTexture_);
 }
 
-void Universe::Body::calCenterLocation(double window_width,
-  double window_height) {
-  x_center = window_width / 2;
-  y_center = window_height / 2;
-}
-
 double Universe::Body::calNetforce(double distance, double m1, double m2) {
   double netForce = 0;
 
@@ -61,19 +55,21 @@ void Universe::Body::draw(sf::RenderTarget &target,
 }
 
 std::string Universe::Body::getPlanetName() {
-  std::string name = "";
-  std::string::iterator itr = planet_name_.begin();
+  std::string name = "PLANET";
 
-  name += toupper(*itr);
-  ++itr;
+  // if(planet_name_.compare("earth.gif") == 0) {
+  //   name = "EARTH";
+  // } else if(planet_name_.compare("sun.gif") == 0) {
+  //   name = "SUN";
+  // } else if(planet_name_.compare("mars.gif") == 0) {
+  //   name = "MARS";
+  // } else if(planet_name_.compare("mercury.gif") == 0) {
+  //   name = "MERCURY";
+  // } else if(planet_name_.compare("venus.gif") == 0) {
+  //   name = "VENUS";
+  // } else {
+  //   name = "PLANET";
+  // }
 
-  while (itr != planet_name_.end()) {
-    if (*itr != '.') {
-      name += *itr;
-    } else {
-      break;
-    }
-    ++itr;
-  }
   return name;
 }
