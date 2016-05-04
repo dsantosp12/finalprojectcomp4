@@ -31,28 +31,28 @@ test: test.o universe.o body.o space.o
 
 # ===========================================
 # Creating objects
-test.o: test.cpp SpaceObject.hpp body.hpp Universe.hpp
+test.o: test.cpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
 	$(CC) $(CFLAGS) $(INCLUDE) test.cpp -o test.o
 
 # ===========================================
 # Creating objects
-body.o: body.cpp body.hpp SpaceObject.hpp
+body.o: body.cpp body.hpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
 	$(CC) $(CFLAGS) $(INCLUDE) body.cpp -o body.o
 
 # ===========================================
 # Creating objects
-star.o: Star.cpp Star.hpp SpaceObject.hpp
+star.o: Star.cpp Star.hpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
 	$(CC) $(CFLAGS) $(INCLUDE) Star.cpp -o star.o
 
 # ===========================================
 # Creating objects
-universe.o: Universe.cpp
+universe.o: Universe.cpp Universe.hpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
 	$(CC) $(CFLAGS) $(INCLUDE) Universe.cpp -o universe.o
@@ -73,11 +73,10 @@ spaceship.o: SpaceShip.cpp SpaceShip.hpp
 
 # ===========================================
 # Creating objects
-main.o: main.cpp Universe.hpp
+main.o: main.cpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
 	$(CC) $(CFLAGS) $(INCLUDE) main.cpp -o main.o
-
 
 clean:
 	rm -rf *~ *.o test $(EXECUTABLE)
