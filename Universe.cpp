@@ -1,9 +1,21 @@
+/** Copyright 2015 Daniel Santos & Hung Nguyen
+*  @file     Universe.cpp
+*  @author   Daniel Santos & Hung Nguyen
+*  @date     05/3/2016
+*  @version  1.0
+*
+*  @brief    This file contains the implementation
+ * of the Universe object.
+* */
+
+#include <vector>
 #include "Universe.hpp"
 
 const unsigned int numStars = 200;  ///< Number of stars
 const unsigned int numBodies = 6;
 
-Universe::Universe::Universe(double rad, int size, std::vector<Body*>& planetList)
+Universe::Universe::Universe(double rad, int size,
+                             std::vector<Body*>& planetList)
   :uni_rad(rad), winSize_(size) {
   if (rad <= 0 || size <= 0) {
     throw std::invalid_argument("Invalid Parameter(s)");
@@ -15,9 +27,14 @@ Universe::Universe::Universe(double rad, int size, std::vector<Body*>& planetLis
   // Create the window
   window_.create(sf::VideoMode(winSize_, winSize_), "Solar");
   window_.setFramerateLimit(30);
-  // Generate the stars and bodies
-
+  ship_ = new SpaceShip(window_.getSize());
   setUpTextAndDialog();
+  elapsedTime_ = 0;
+
+  music_.openFromFile("res/background_music.wav");
+  music_.play();
+
+  // Generate the stars
   fetchStar();
   bodyList_ = planetList;
 }
@@ -30,88 +47,91 @@ Universe::Universe::~Universe() {
 @ Note:
 * ***********************************/
 void Universe::Universe::run() {
-  // counting time instead of checking
-  // if the window is open
-  int current_time;
-  for (current_time = 0; current_time < uni_total_times; current_time += step_time) {
+  while (window_.isOpen() && elapsedTime_ < uni_total_times) {
     sf::Event event;
     while (window_.pollEvent(event)) {
       switch (event.type) {
         case sf::Event::Closed:
           window_.close();
           break;
+        case sf::Event::KeyPressed:
+          shipMove(event.key);
+          break;
         default:
           break;
       }
     }
-    // Clear the windows
     window_.clear();
-
-    // Update and draw the dialog
-    // checkClickOnSprite();
-    // updateDialog(selectedPlanet_);
-    // window_.draw(dialogBox_);
-    // window_.draw(dialogText_);
-    // window_.draw(textTime_);
-
-    // Draw the stars. Check draw stars for reference
+    // Update and draw
+    checkClickOnSprite();
+    //updateDialog(selectedPlanet_);
+    updateUniverse();
+    //window_.draw(dialogBox_);
+    //window_.draw(dialogText_);
+    //window_.draw(textTime_);
     drawStars();
+    //window_.draw(*ship_);
+    window_.display();
 
-    // Get the current body
-    std::vector<Body*>::iterator first_it;
-    for (first_it = bodyList_.begin(); first_it != bodyList_.end(); ++first_it) {
-      // get the default properties
-      double m1 = (*first_it)->getMass();
+    // Update current
+    updateTime(step_time);
+  }
+  printState();
+}
 
-      // Inital at rest, force = 0
-      double x_force = 0, y_force = 0;
-      double x_accel, y_accel;
+void Universe::Universe::updateUniverse() {
+  // Get the current body
+  std::vector<Body*>::iterator first_it;
+  for (first_it = bodyList_.begin(); first_it != bodyList_.end(); ++first_it) {
+    // get the default properties
+    double m1 = (*first_it)->getMass();
 
-      // contact this planet to other planets
-      std::vector<Body*>::iterator second_it;
-      for (second_it = bodyList_.begin(); second_it != bodyList_.end(); ++second_it) {
-        if (*first_it != *second_it) {
-          // Get current position of the two planets
-          sf::Vector2f first_pos = (*first_it)->getInitScale();
-          sf::Vector2f second_pos = (*second_it)->getInitScale();
+    // Inital at rest, force = 0
+    double x_force = 0, y_force = 0;
+    double x_accel, y_accel;
 
-          // Get mass of the second planet
-          double m2 = (*second_it)->getMass();
+    // contact this planet to other planets
+    std::vector<Body*>::iterator second_it;
+    for (second_it = bodyList_.begin(); second_it != bodyList_.end();
+         ++second_it) {
+      if (*first_it != *second_it) {
+        // Get current position of the two planets
+        sf::Vector2f first_pos = (*first_it)->getInitScale();
+        sf::Vector2f second_pos = (*second_it)->getInitScale();
 
-          // get different between those position
-          double x_dif = second_pos.x - first_pos.x;
-          double y_dif = second_pos.y - first_pos.y;
-          // r =  squrt(x^2 + y^2)
-          double distance = sqrt((x_dif * x_dif) + (y_dif * y_dif));
+        // Get mass of the second planet
+        double m2 = (*second_it)->getMass();
 
-          // now get the netForce
-          double netforce = (*first_it)->calNetforce(distance, m1, m2);
+        // get different between those position
+        double x_dif = second_pos.x - first_pos.x;
+        double y_dif = second_pos.y - first_pos.y;
+        // r =  squrt(x^2 + y^2)
+        double distance = sqrt((x_dif * x_dif) + (y_dif * y_dif));
 
-          // Update the acceleration to the current body
-          x_force += netforce * (x_dif / distance);
-          y_force += netforce * (y_dif / distance);
+        // now get the netForce
+        double netforce = (*first_it)->calNetforce(distance, m1, m2);
 
-          // update the acceleration
-          x_accel = x_force / m1;
-          y_accel = y_force / m1;
-        }
+        // Update the acceleration to the current body
+        x_force += netforce * (x_dif / distance);
+        y_force += netforce * (y_dif / distance);
+
+        // update the acceleration
+        x_accel = x_force / m1;
+        y_accel = y_force / m1;
       }
-
-      // After comparing and calculating with other planets
-      // Update value to the current body
-      (*first_it)->setAcceleration(x_accel, y_accel);
-      // update Velocity
-      (*first_it)->set_xVel(step_time);
-      (*first_it)->set_yVel(step_time);
-      // now update position
-      (*first_it)->step(step_time);
-
-      transformBodies(*(*first_it));
-      window_.draw(*(*first_it));
     }
 
-    // Draw everything in on the window
-    window_.display();
+    // After comparing and calculating with other planets
+    // Update value to the current body
+    (*first_it)->setAcceleration(x_accel, y_accel);
+    // update Velocity
+    (*first_it)->set_xVel(step_time);
+    (*first_it)->set_yVel(step_time);
+    // now update position
+    (*first_it)->step(step_time);
+
+    transformBodies(*(*first_it));
+    window_.draw(*(*first_it));
   }
 }
 
@@ -124,7 +144,7 @@ void Universe::Universe::run() {
 void Universe::Universe::fetchStar() {
   // Instanciate Stars and push it to starList
   for (unsigned int i = 0; i < numStars; i++)
-		starList_.push_back(Star(window_.getSize(), starList_));
+    starList_.push_back(Star(window_.getSize(), starList_));
 }
 
 /* **********************************
@@ -226,7 +246,8 @@ void Universe::Universe::checkClickOnSprite() {
 
     for (itr = bodyList_.begin(); itr != bodyList_.end(); ++itr) {
       sprite = (*itr)->getSprite();
-      if (sprite.getGlobalBounds().contains(sf::Vector2f(click_coordinates.x, click_coordinates.y))) {
+      if (sprite.getGlobalBounds()
+          .contains(sf::Vector2f(click_coordinates.x, click_coordinates.y))) {
         selectedPlanet_ = *itr;
       }
     }
@@ -234,14 +255,14 @@ void Universe::Universe::checkClickOnSprite() {
 }
 
 void Universe::Universe::setUpTextAndDialog() {
-  sf::Vector2f dialog_size(400, 150);
+  sf::Vector2f dialog_size(600, 150);
   sf::Vector2f dialog_pos(window_.getSize().x-dialog_size.x,
                          window_.getSize().y-dialog_size.y);
   dialogBox_.setSize(dialog_size);
   dialogBox_.setPosition(dialog_pos);
-  dialogBox_.setFillColor(sf::Color(255, 255, 255, 200));
+  dialogBox_.setFillColor(sf::Color(255, 255, 255, 150));
 
-  fontTime_.loadFromFile("nbody/fonts.otf");
+  fontTime_.loadFromFile("res/fonts.otf");
   textTime_.setFont(fontTime_);
   textTime_.setString("0");
   dialogText_.setFont(fontTime_);
@@ -253,14 +274,42 @@ void Universe::Universe::setUpTextAndDialog() {
 
 void Universe::Universe::updateDialog(Body *planet) {
   if (planet != NULL) {
-    sf::Vector2f position = planet->getLocation();
-    sf::Vector2u velocity = planet->getVelocity();
     sf::Vector2f acce = planet->getAcceleration();
     std::stringstream ss;
     ss << std::setw(18)  << "Planet: " << planet->getPlanetName() << std::endl
-        << std::setw(18) << "Position: (" << position.x << ", " << position.y << ")" << std::endl
-        << std::setw(17) << "Velocity: (" << velocity.x << ", " << velocity.y << ")" << std::endl
+        << std::setw(18) << "Position: (" << planet->getPosition().x
+        << ", " << planet->getPosition().y << ")" << std::endl
+        << std::setw(17) << "Velocity: (" << planet->get_xVel()
+        << ", " << planet->get_yVel() << ")" << std::endl
         << "Acceleration: (" << acce.x << ", " << acce.y << ")" << std::endl;
     dialogText_.setString(ss.str());
+  }
+}
+
+void Universe::Universe::shipMove(sf::Event::KeyEvent key) {
+  ship_->move(key.code);
+}
+
+void Universe::Universe::updateTime(int time) {
+  elapsedTime_ += time;
+  this->setTextTime();
+}
+
+void Universe::Universe::setTextTime() {
+  std::stringstream ss;
+  ss << getElapsedTime();
+  textTime_.setString(ss.str());
+}
+
+int Universe::Universe::getElapsedTime() const {
+  return elapsedTime_;
+}
+
+void Universe::Universe::printState() {
+  std::vector<Body*>::iterator itr;
+  std::cout << "++++++++++++++ Universe State ++++++++++++++" << std::endl;
+  for (itr = bodyList_.begin(); itr != bodyList_.end(); ++itr) {
+    std::cout << "Planet: " << (*itr)->getPlanetName() << std::endl;
+    std::cout << *(*itr) << std::endl;
   }
 }

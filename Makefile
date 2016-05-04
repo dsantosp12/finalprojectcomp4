@@ -8,7 +8,7 @@ LIB = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 TEST_LIB = -lboost_unit_test_framework
 LINK = -L /usr/local/lib
 INCLUDE = -I /usr/local/include
-EXECUTABLE = orbit test
+EXECUTABLE = NBody
 CC = g++
 
 # ===========================================
@@ -17,10 +17,10 @@ all: $(EXECUTABLE)
 
 # ===========================================
 # Creating Executables
-orbit: main.o universe.o star.o space.o body.o
+NBody: main.o universe.o star.o space.o spaceship.o body.o
 	@echo '' # New line
 	@echo ' ------ 	 target: $@'
-	$(CC) $(FLAGS) main.o universe.o body.o star.o space.o -o orbit $(LINK) $(LIB)
+	$(CC) $(FLAGS) main.o universe.o body.o star.o space.o spaceship.o -o NBody $(LINK) $(LIB)
 
 # ===========================================
 # Creating Executables
@@ -35,6 +35,7 @@ test.o: test.cpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
 	$(CC) $(CFLAGS) $(INCLUDE) test.cpp -o test.o
+	$(CC) $(FLAGS) main.o universe.o body.o star.o space.o -o $(EXECUTABLE) $(LINK) $(LIB)
 
 # ===========================================
 # Creating objects
@@ -63,6 +64,13 @@ space.o: SpaceObject.cpp SpaceObject.hpp
 	@echo '' # New line
 	@echo ' ------ Building target: $@'
 	$(CC) $(CFLAGS) $(INCLUDE) SpaceObject.cpp -o space.o
+
+# ===========================================
+# Creating objects
+spaceship.o: SpaceShip.cpp SpaceShip.hpp
+	@echo '' # New line
+	@echo ' ------ Building target: $@'
+	$(CC) $(CFLAGS) $(INCLUDE) SpaceShip.cpp -o spaceship.o
 
 # ===========================================
 # Creating objects

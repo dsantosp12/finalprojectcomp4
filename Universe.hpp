@@ -1,5 +1,5 @@
 /** Copyright 2015 Daniel Santos & Hung Nguyen
-*  @file     body.hpp
+*  @file     Universe.hpp
 *  @author   Daniel Santos & Hung Nguyen
 *  @date     04/22/2016
 *  @version  1.0
@@ -19,6 +19,7 @@
 #include <sstream>
 #include <iomanip>
 #include "SpaceObject.hpp"
+#include "SpaceShip.hpp"
 #include "body.hpp"
 #include "Star.hpp"
 
@@ -85,18 +86,11 @@ class Universe {
   void printState();
 
   /*  @author: Daniel Santos & Hung Q Nguyen
-   *  @brief: Getting the ref of the elapsed time string.
-   *  @params: none
-   *  @return: sf::Text& -- Ref to the current text (String of elapsed time)
-   */
-  sf::Text& getTextTime() const;
-
-  /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: setting the text from value of elapsed time.
    *  @params: int -- value of elapse time
    *  @return: none
    */
-  void setTextTime(int elapsed_time);
+  void setTextTime();
 
   /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: get the value of elapsed time
@@ -173,7 +167,7 @@ class Universe {
    *  @params: none
    *  @return: none
    */
-  void updateTime();
+  void updateTime(int time);
 
   /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: Update the coordinates of the planets
@@ -194,18 +188,28 @@ class Universe {
    *  @author Daniel Santos
    *  @brief  This method check is on of the planets
    *  have been clicked.
-   *  @param
-   *  @return boolean
+   *  @param  none
+   *  @return none
    * */
   void checkClickOnSprite();
   /**
    *  @author Daniel Santos
    *  @brief  This is a helper method to setup the
    *  information dialog.
+   *  @param  none
+   *  @return none
    * */
   void setUpTextAndDialog();
-
+  /**
+   *  @author Daniel Santos
+   *  @brief  This function will update a the dialog
+   *  with the properties of a given planet.
+   *  @param  none
+   *  @return none
+   * */
   void updateDialog(Body* planet);
+
+  void shipMove(sf::Event::KeyEvent key);
 
   int winSize_;  ///< Size of the window
   int uni_total_times;  ///< Total times for the universe
@@ -214,6 +218,8 @@ class Universe {
   sf::RenderWindow window_;  ///< Main window
   std::vector<Body*> bodyList_;  ///< List of Bodies
   std::vector<Star> starList_;  ///< List of Stars
+  SpaceShip* ship_;  ///< SpaceShip
+  sf::Music music_;  ///< Music for the simulation
   int elapsedTime_;   ///< Elapsed Time
   sf::Font fontTime_;  ///< Font of Text displaying in the screen
   sf::Text textTime_;  ///< Text of the Planet.
@@ -222,5 +228,5 @@ class Universe {
   Body* selectedPlanet_;  ///< This will hold a clicked planet
 };
 
-}
+}  // namespace Universe
 #endif  // PS4_SPACEOBJECT_HPP
