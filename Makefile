@@ -24,10 +24,10 @@ NBody: main.o universe.o star.o space.o spaceship.o body.o
 
 # ===========================================
 # Creating Executables
-test: test.o universe.o body.o space.o
+test: test.o universe.o body.o space.o star.o spaceship.o
 	@echo '' # New line
 	@echo ' ------ 	 target: $@'
-	$(CC) $(FLAGS) test.o universe.o space.o body.o -o test $(LINK) $(TEST_LIB)
+	$(CC) $(FLAGS) test.o universe.o star.o spaceship.o space.o body.o -o test $(LINK) $(LIB) $(TEST_LIB)
 
 # ===========================================
 # Creating objects
