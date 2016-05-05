@@ -50,6 +50,7 @@ sf::Vector2f Universe::Star::positionGenerator(sf::Vector2u range,
   sf::Vector2f new_vector(std::rand()%range.x, std::rand()%range.y);
   float y, x;
   bool x_check, y_check;
+  // This makes sure that the stars don't overlap one another
   while (itr != starList.end()) {
     x = itr->getLocation().x, y = itr->getLocation().y,
     x_check = (new_vector.x > x+MAX_RADIUS || new_vector.x < x-MAX_RADIUS),

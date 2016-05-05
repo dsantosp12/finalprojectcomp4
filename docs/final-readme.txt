@@ -5,9 +5,12 @@ Project name: Solar System
 
 /**********************************************************************
  *  Did you complete the whole assignment?
- *  Successfully or not? 
+    Yes
+ *  Successfully or not?
+    Successfully
  *  Indicate which parts you think are working, and describe
  *    how you know that they're working.
+    All parts are working.
  **********************************************************************/
 
 General Work: (Work has been discussed and decided together)
@@ -47,6 +50,7 @@ General Work: (Work has been discussed and decided together)
 		- Making a spaceship moving around the universe
 		- Clicking on any planet will display a table at the corner of the screen
 		  which shows the information of the current space (velocity, coodinate, name, acceleration)...
+		- Git repository was used
 
 Initial Splited Works:
 

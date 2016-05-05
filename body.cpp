@@ -62,9 +62,7 @@ std::string Universe::Body::getPlanetName() {
 void Universe::Body::parsePlanetName() {
   std::string parsed_name = "";
   parsed_name += toupper(planet_name_.at(0));
-  for (unsigned int i = 1; i < planet_name_.size()
-      && planet_name_.at(i) != '.'; i++) {
-    std::cout << parsed_name << std::endl;
+  for (unsigned int i = 1; planet_name_.at(i) != '.'; i++) {
     parsed_name += planet_name_.at(i);
   }
   planet_name_ = parsed_name;

@@ -9,6 +9,7 @@
 * */
 
 #include <vector>
+#include <string>
 #include "Universe.hpp"
 
 const unsigned int numStars = 200;  ///< Number of stars
@@ -25,7 +26,8 @@ Universe::Universe::Universe(double rad, int size,
   std::srand(time(0));
 
   // Create the window
-  window_.create(sf::VideoMode(winSize_, winSize_), "SOLAR SYSTEM (Hung Nguyen & Daniel Santos)");
+  window_.create(sf::VideoMode(winSize_, winSize_),
+                 "SOLAR SYSTEM (Hung Nguyen & Daniel Santos)");
   window_.setFramerateLimit(30);
   ship_ = new SpaceShip(window_.getSize());
   setUpTextAndDialog();
@@ -188,7 +190,8 @@ void Universe::Universe::setStepTime(double time_) {
 * ***********************************/
 void Universe::Universe::setTotalTime(int time_) {
   if (time_ < step_time) {
-    throw std::runtime_error("Invalid Total Time! Should be bigger then time per step");
+    throw std::runtime_error(
+        "Invalid Total Time! Should be bigger then time per step");
     return;
   }
   uni_total_times = time_;
@@ -253,6 +256,10 @@ void Universe::Universe::checkClickOnSprite() {
   }
 }
 
+/* **********************************
+@ Implemented by Daniel Santos
+@ Note:
+* ***********************************/
 void Universe::Universe::setUpTextAndDialog() {
   sf::Vector2f dialog_size(600, 150);
   sf::Vector2f dialog_pos(window_.getSize().x-dialog_size.x,
@@ -271,6 +278,10 @@ void Universe::Universe::setUpTextAndDialog() {
   dialogText_.setPosition(dialog_pos.x+10, dialog_pos.y);
 }
 
+/* **********************************
+@ Implemented by Daniel Santos
+@ Note:
+* ***********************************/
 void Universe::Universe::updateDialog(Body *planet) {
   if (planet != NULL) {
     sf::Vector2f acce = planet->getAcceleration();
@@ -288,6 +299,10 @@ void Universe::Universe::updateDialog(Body *planet) {
   }
 }
 
+/* **********************************
+@ Implemented by Daniel Santos
+@ Note:
+* ***********************************/
 void Universe::Universe::shipMove(sf::Event::KeyEvent key) {
   ship_->move(key.code);
 }

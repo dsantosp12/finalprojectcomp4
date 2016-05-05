@@ -11,14 +11,14 @@
 #ifndef BODY_HPP_
 #define BODY_HPP_
 
-#include <math.h>
-#include <iostream>
-#include <string>
-#include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <SFML/System.hpp>
 #include <SFML/Audio.hpp>
+#include <math.h>
+#include <iostream>
+#include <string>
+#include <vector>
 
 #include "SpaceObject.hpp"
 #include "nonCopyClass.hpp"
