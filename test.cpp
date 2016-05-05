@@ -156,7 +156,46 @@ BOOST_AUTO_TEST_CASE(Velocity) {
 
 	// Now call the step
 	(*firstB)->updateVelocity(1000);
-	
+
 	BOOST_REQUIRE_EQUAL((*firstB)->get_xVel(), 1500);
 	BOOST_REQUIRE_EQUAL((*firstB)->get_yVel(), -500);
+}
+
+BOOST_AUTO_TEST_CASE(Translation) {	
+	// Temp list for making the universe purpose
+	std::vector<Universe::Body*> temp;
+	for (int i = 0; i < 5; i++) {
+		Universe::Body* planet = new Universe::Body(500);
+		temp.push_back(planet);
+	}
+
+	// create a universe
+	Universe::Universe uni5(500000, 500, temp);
+
+	// Setting up the universe
+	uni5.setTotalTime(1000000);
+	uni5.setStepTime(1000);
+
+	// Getting the first body
+	std::vector<Universe::Body*>::iterator first = temp.begin();
+	// Set initial position
+ 	(*first)->set_xPos(0);
+  (*first)->set_yPos(0);
+
+  // SetAcceleration
+  (*first)->setAcceleration(1,1);
+
+	// Set velocity
+	(*first)->set_xVel(500.0);
+	(*first)->set_yVel(500.0);
+
+	// Now transform body to get the SFML coordinate
+	uni5.transformBodies(*(*first));
+	sf::Vector2f newCoor = (*first)->getPosition();
+
+	// Currently -- the universe radius is 500000 and window size is 500
+	// So 1000 miles od radius is equal to 1 pixel of sfml coordinate
+	// so in SFML, the (0,0) coordinate in univers equivalence to (0+250,0+250) in sfml (500/2 = 250)
+	BOOST_REQUIRE_EQUAL(newCoor.x, 250);
+	BOOST_REQUIRE_EQUAL(newCoor.y, 250);
 }

@@ -245,7 +245,7 @@ class Body : public SpaceObject, virtual private NonCopyClass {
    *   @params: None
    *   @return: sf::Vector2f -- Value of Position
    */
-  sf::Vector2f getPosition() { return sf::Vector2f(x_pos, y_pos);}
+  sf::Vector2f getPosition() { return pSprite_.getPosition();}
 
   /*  @author: Daniel Santos & Hung Q Nguyen
    *   @brief: Getting the name of current planet

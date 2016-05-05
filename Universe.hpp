@@ -127,6 +127,13 @@ class Universe {
   */
   double getTotalTime() {return uni_total_times;}
 
+  /*  @author: Hung Q Nguyen
+  *  @brief: Scale the properties of the bodies
+  *  @params: none
+  *  @return: none
+  */
+  void transformBodies(Body&);
+
  private:
   /*  @author: Daniel Santos & Hung Q Nguyen
    *  @brief: Generate the vector of Bodies
@@ -177,13 +184,6 @@ class Universe {
    */
   void updateUniverse();
 
-  /*  @author: Hung Q Nguyen
-  *  @brief: Scale the properties of the bodies
-  *  @params: none
-  *  @return: none
-  */
-  void transformBodies(Body&);
-
   /**
    *  @author Daniel Santos
    *  @brief  This method check is on of the planets
@@ -200,6 +200,7 @@ class Universe {
    *  @return none
    * */
   void setUpTextAndDialog();
+
   /**
    *  @author Daniel Santos
    *  @brief  This function will update a the dialog
@@ -209,6 +210,12 @@ class Universe {
    * */
   void updateDialog(Body* planet);
 
+  /**
+   *  @author Daniel Santos
+   *  @brief  This function help to move the shift
+   *  @param  Key event
+   *  @return none
+   * */
   void shipMove(sf::Event::KeyEvent key);
 
   int winSize_;  ///< Size of the window
@@ -227,6 +234,5 @@ class Universe {
   sf::Text dialogText_;  ///< Text for the dialog
   Body* selectedPlanet_;  ///< This will hold a clicked planet
 };
-
 }  // namespace Universe
 #endif  // PS4_SPACEOBJECT_HPP
