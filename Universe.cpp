@@ -125,8 +125,7 @@ void Universe::Universe::updateUniverse() {
     // Update value to the current body
     (*first_it)->setAcceleration(x_accel, y_accel);
     // update Velocity
-    (*first_it)->set_xVel(step_time);
-    (*first_it)->set_yVel(step_time);
+    (*first_it)->updateVelocity(step_time);
     // now update position
     (*first_it)->step(step_time);
 

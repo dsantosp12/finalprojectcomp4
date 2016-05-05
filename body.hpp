@@ -54,10 +54,10 @@ class Body : public SpaceObject, virtual private NonCopyClass {
    *
    *	After that, it will shift the current seed one to the left and then put the
    *	current generated value to the last position of the seed.
-   *   @param  nothing
+   *   @param  double times
    *   @return nothing
    */
-  void step(int times);
+  void step(double times);
 
   /*  @author: Hung Q Nguyen
    *	@brief: Calculating the netforce between the planet to the sun
@@ -76,7 +76,7 @@ class Body : public SpaceObject, virtual private NonCopyClass {
    *	@param: double times: -- the current time calculating
    *	@return: void -- Getting the values calculated through setter
    */
-  void updateVelocity(int times);
+  void updateVelocity(double times);
 
   /**************************************
 	LIST OF GETTERS AND SETTERS
@@ -87,8 +87,8 @@ class Body : public SpaceObject, virtual private NonCopyClass {
    *   @params: double -- value of time to cal
    *   @return: void
    **/
-  void set_xVel(double times) {
-    x_vel = x_vel + (times * x_accel_);
+  void set_xVel(double xvel) {
+    x_vel = xvel;
   }
 
   /*  @author: Hung Q Nguyen
@@ -96,8 +96,8 @@ class Body : public SpaceObject, virtual private NonCopyClass {
    *   @params: double -- value of time to cal
    *   @return: void
    **/
-  void set_yVel(double times) {
-    y_vel = y_vel - (times * y_accel_);
+  void set_yVel(double yvel) {
+    y_vel = yvel;
   }
 
   /*  @author: Hung Q Nguyen
