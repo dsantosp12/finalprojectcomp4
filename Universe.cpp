@@ -284,7 +284,7 @@ void Universe::Universe::setUpTextAndDialog() {
 @ Note:
 * ***********************************/
 void Universe::Universe::updateDialog(Body *planet) {
-  if (planet != NULL) {
+  if (planet) {
     sf::Vector2f acce = planet->getAcceleration();
     std::stringstream ss;
     std::string name;
