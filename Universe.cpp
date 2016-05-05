@@ -16,7 +16,7 @@ const unsigned int numBodies = 6;
 
 Universe::Universe::Universe(double rad, int size,
                              std::vector<Body*>& planetList)
-  :uni_rad(rad), winSize_(size) {
+  :winSize_(size), uni_rad(rad) {
   if (rad <= 0 || size <= 0) {
     throw std::invalid_argument("Invalid Parameter(s)");
     return;
@@ -175,7 +175,7 @@ void Universe::Universe::fetchBody() {
   + 5/3: First time Implemented
 * ***********************************/
 void Universe::Universe::setStepTime(double time_) {
-  if (time_ > uni_total_times) {
+  if (time_ > uni_total_times || time_ <= 0) {
     throw std::runtime_error("Invlaid Time per Step!");
     return;
   }

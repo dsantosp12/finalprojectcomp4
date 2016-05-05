@@ -8,7 +8,7 @@ LIB = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 TEST_LIB = -lboost_unit_test_framework
 LINK = -L /usr/local/lib
 INCLUDE = -I /usr/local/include
-EXECUTABLE = NBody
+EXECUTABLE = NBody test
 CC = g++
 
 # ===========================================

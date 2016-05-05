@@ -115,6 +115,40 @@ class Body : public SpaceObject, virtual private NonCopyClass {
   double get_yVel() {return y_vel;}
 
   /*  @author: Hung Q Nguyen
+   *   @brief: Setting value of x coordinate
+   *           Used for unit test only
+   *   @params: double -- value of x
+   *   @return: void
+   **/
+  void set_xPos(double x) {
+    x_pos = x;
+  }
+
+  /*  @author: Hung Q Nguyen
+   *   @brief: Setting value of y coordinate
+   *           Used for unit test only
+   *   @params: double -- value of y
+   *   @return: void
+   **/
+  void set_yPos(double y) {
+    y_pos = y;
+  }
+
+  /*  @author: Hung Q Nguyen
+  *   @brief: Getting value of x position
+  *   @params: none
+  *   @return: double -- value of position
+  **/
+  double get_xPos() {return x_pos;}
+
+  /*  @author: Hung Q Nguyen
+   *   @brief: Getting value of y position
+   *   @params: none
+   *   @return: double -- value of y position
+   **/
+  double get_yPos() {return y_pos;}
+
+  /*  @author: Hung Q Nguyen
    *   @brief: Setting value of times
    *   @params: double -- value of times to assign
    *   @return: void
