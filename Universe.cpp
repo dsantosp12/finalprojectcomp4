@@ -39,6 +39,7 @@ Universe::Universe::Universe(double rad, int size,
   // Generate the stars
   fetchStar();
   bodyList_ = planetList;
+  selectedPlanet_ = NULL;
 }
 
 Universe::Universe::~Universe() {
