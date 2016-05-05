@@ -347,13 +347,20 @@ class Body : public SpaceObject, virtual private NonCopyClass {
 
     std::cout << body.x_vel << " " << body.y_vel << std::endl;
     body.planet_name_ = image_name;
+    body.parsePlanetName();
     body.file_name = "res/" + image_name;
-
     body.pTexture_.loadFromFile(body.file_name);
     body.pSprite_.setTexture(body.pTexture_);
 
     return in_stream;
   }
+
+  /**
+   *  @author Hung Nguyen & Daniel Santos
+   *  @brief  This method extract the planet name
+   *  from the image name.
+   * */
+  void parsePlanetName();
 
  private:
   int wSize_;  ///< Size of the window

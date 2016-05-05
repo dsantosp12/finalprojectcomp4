@@ -2,7 +2,7 @@
 # NEEDED PROPERTIES
 #=================================================
 OBJECTS = body.o star.o space.o universe.o main.o
-CFLAGS = -c -Wall
+CFLAGS = -c -g -Wall
 FLAGS = -Wall -Werror -pedantic
 LIB = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 TEST_LIB = -lboost_unit_test_framework

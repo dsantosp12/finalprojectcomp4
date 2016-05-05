@@ -11,6 +11,7 @@
 
 #include <string>
 #include "body.hpp"
+#include "Universe.hpp"
 
 const double G = 6.67e-11;
 const double E = 1e+9;
@@ -55,21 +56,16 @@ void Universe::Body::draw(sf::RenderTarget &target,
 }
 
 std::string Universe::Body::getPlanetName() {
-  std::string name = "PLANET";
+  return planet_name_;
+}
 
-  // if(planet_name_.compare("earth.gif") == 0) {
-  //   name = "EARTH";
-  // } else if(planet_name_.compare("sun.gif") == 0) {
-  //   name = "SUN";
-  // } else if(planet_name_.compare("mars.gif") == 0) {
-  //   name = "MARS";
-  // } else if(planet_name_.compare("mercury.gif") == 0) {
-  //   name = "MERCURY";
-  // } else if(planet_name_.compare("venus.gif") == 0) {
-  //   name = "VENUS";
-  // } else {
-  //   name = "PLANET";
-  // }
-
-  return name;
+void Universe::Body::parsePlanetName() {
+  std::string parsed_name = "";
+  parsed_name += toupper(planet_name_.at(0));
+  for (unsigned int i = 1; i < planet_name_.size()
+      && planet_name_.at(i) != '.'; i++) {
+    std::cout << parsed_name << std::endl;
+    parsed_name += planet_name_.at(i);
+  }
+  planet_name_ = parsed_name;
 }
