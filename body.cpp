@@ -39,12 +39,12 @@ double Universe::Body::calNetforce(double distance, double m1, double m2) {
   return netForce;
 }
 
-void Universe::Body::updateVelocity(int times) {
+void Universe::Body::updateVelocity(double times) {
   x_vel = x_vel + (x_accel_ * times);
   y_vel = y_vel - (y_accel_ * times);
 }
 
-void Universe::Body::step(int times) {
+void Universe::Body::step(double times) {
   // Update position from step
   x_pos = x_pos + (x_vel * times);
   y_pos = y_pos - (y_vel * times);
